@@ -256,7 +256,7 @@
 (define-key evil-normal-state-map (kbd "C-i")
   (lambda () (interactive) (evil-jump-forward) (recenter-no-redraw)))
 
-; Some help keybindings which conflict with nothing else, so you can pull up help in any context.
+;; Some help keybindings which conflict with nothing else, so you can pull up help in any context.
 (global-set-key (kbd "C-A-M-h") 'help)
 (global-set-key (kbd "C-A-M-b") 'describe-bindings)
 
