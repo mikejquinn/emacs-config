@@ -1,0 +1,9 @@
+[submodule "cider"]
+	path = .emacs.d/vendor/cider
+	url = https://github.com/clojure-emacs/cider.git
+[submodule "clojure-mode"]
+	path = .emacs.d/vendor/clojure-mode
+	url = https://github.com/clojure-emacs/clojure-mode.git
+[submodule "ruby-electric"]
+	path = .emacs.d/vendor/ruby-electric
+	url = https://github.com/qoobaa/ruby-electric.git

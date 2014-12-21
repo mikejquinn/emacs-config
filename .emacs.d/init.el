@@ -17,13 +17,10 @@
   (package-refresh-contents))
 
 (defvar my-packages '(ace-jump-mode ; Jump to any text on screen in a few keystrokes. Like Vim's EasyMotion.
-                      ac-nrepl
+                      ;; ac-cider
                       ag ; Silver searcher integration for Emacs
                       autopair ; Insert matching delimiters, e.g. insert closing braces.
                       auto-complete
-                      cider ; repl for Clojure code evaluation.
-                      clojure-mode
-                      clojure-test-mode
                       coffee-mode ; For syntax highlighting coffeescript.
                       dired-details+ ; Hides all of the unnecessary file details in dired mode.
                       diminish ; For hiding and shortening minor modes in the modeline
@@ -38,22 +35,35 @@
                       ido-vertical-mode ; Show ido results vertically.
                       magit
                       markdown-mode
-                      midje-mode ; For editing clojure tests
+                      ;; midje-mode ; For editing clojure tests
                       ;; multi-term ; Display many termianls inside emacs, not just one.
                       org ; For outlining. This is bundled with Emacs, but I'm using the latest version.
                       outline-magic ; Extensions to ouline mode, which I use heavily in markdown mode.
                       powerline ; Improve the appearance & density of the Emacs status bar.
                       projectile ; Find file in project (ala CTRL-P).
                       rainbow-delimiters ; Highlight parentheses in rainbow colors.
-                      ruby-electric ; Insert matching delimiters; unindent end blocks after you type them.
+                      ;; ruby-electric ; Insert matching delimiters; unindent end blocks after you type them.
                       scss-mode
                       yaml-mode
                       yasnippet
                       zoom-frm))
 
+; The version of ruby-electric in melpa wasn't compiling for me as of 9/14
+(add-to-list 'load-path "~/.emacs.d/vendor/ruby-electric/")
+(require 'ruby-electric)
+
 (dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+  (unless (package-installed-p p))
+    (package-install p))
+
+(add-to-list 'load-path "~/.emacs.d/vendor/cider/")
+(add-to-list 'load-path "~/.emacs.d/vendor/clojure-mode/")
+(require 'cider)
+(require 'cider-test)
+(require 'clojure-mode)
+
+(add-to-list 'load-path "~/.emacs.d/g-macs/")
+(require 'gmacs)
 
 ;;
 ;; General settings
