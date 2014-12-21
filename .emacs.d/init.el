@@ -6,6 +6,8 @@
 ;; centralize the configuration for everything here in this file.
 ;;
 
+;; (setq debug-on-error f)
+
 ;;
 ;; Package management
 ;;
