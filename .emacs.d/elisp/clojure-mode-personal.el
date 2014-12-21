@@ -180,7 +180,7 @@
   "eb" (lambda ()
          (interactive)
          (save-buffer)
-         (with-nrepl-connection-of-current-buffer 'cider-load-current-buffer))
+         (with-nrepl-connection-of-current-buffer 'cider-load-buffer))
   ;; cider-restart-nrepl is more handy than cider-jack-in, because it doesn't leave existing repls running.
   "en" 'my-cider-restart-nrepl
   "es" 'my-cider-eval-current-sexp
@@ -198,7 +198,7 @@
   "rT" (lambda ()
          (interactive)
          (save-buffer)
-         (with-nrepl-connection-of-current-buffer 'cider-load-current-buffer)
+         (with-nrepl-connection-of-current-buffer 'cider-load-buffer)
          (with-nrepl-connection-of-current-buffer 'my-cider-run-tests-in-ns)))
 
 ;; Highlight parentheses in rainbow colors.

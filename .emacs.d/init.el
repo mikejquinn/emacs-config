@@ -271,14 +271,14 @@
   "Select a paragraph separated by newlines."
   :type line
   ;; These two vars are set by the current programming mode. Set them to their default text mode values
-  ;; temporarily while we select the paragraph. The implementation of evil-move-paragraph invokes
+  ;; temporarily while we select the paragraph. The implementation of evil-select-an-object will invoke
   ;; `forward-paragraph`, which uses these variables.
   (let ((paragraph-start "\f\\|[     ]*$")
         (paragraph-separate "[  ]*$"))
-    (evil-an-object-range count beg end type #'evil-move-paragraph nil nil t)))
+    (evil-select-an-object 'evil-paragraph beg end type count)))
 
 (define-key evil-outer-text-objects-map "p" 'evil-paragraph-from-newlines)
-(define-key evil-outer-text-objects-map "P" 'evil-a-pagraph)
+(define-key evil-outer-text-objects-map "P" 'evil-a-paragraph)
 
 (evil-leader/set-key
   "h" 'help
