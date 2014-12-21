@@ -381,11 +381,9 @@
 (evil-leader/set-key "ws A-d" 'swap-window-with-lower-left)
 (evil-leader/set-key "ws A-r" 'swap-window-with-upper-right)
 (evil-leader/set-key "ws A-f" 'swap-window-with-lower-right)
-;; (evil-leader/set-key "ws A-e" 'swap-window-with-upper-right)
 (evil-leader/set-key "wk" (lambda () (interactive) (kill-buffer (current-buffer))))
 (evil-leader/set-key "wm" 'toggle-window-maximize)
 (evil-leader/set-key "wr" 'evil-window-rotate-downwards)
-(evil-leader/set-key "wR" 'evil-window-rotate-upwards)
 (evil-leader/set-key "wR" 'evil-window-rotate-upwards)
 ;; Undo the last change you made to your window configuration.
 (evil-leader/set-key "wb" 'winner-undo)
