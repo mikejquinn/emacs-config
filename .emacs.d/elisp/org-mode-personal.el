@@ -168,6 +168,7 @@
   (message "[L] Liftoff  [E] Errands  [S] Study  [N] Entertainment  [M] Emacs")
   (lexical-let ((subheading (pcase (read-char)
                               (?l "Liftoff")
+                              (?l "Personal")
                               (?e "Errands")
                               (?s "Study")
                               (?n "Entertainment")
