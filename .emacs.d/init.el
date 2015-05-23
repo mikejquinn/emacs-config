@@ -104,11 +104,8 @@
 ;; Require typing only "y" or"n" instead of the full "yes" to confirm destructive actions.
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; Turn off backups and autosaves so we don't have ~ and # files strewn about the working directory. I've
-;; tried storing backups in my home directory as suggested by http://stackoverflow.com/q/151945/46237, but
-;; still I see the occasional backup file.
-(setq make-backup-files nil)
-(setq auto-save-default nil)
+;; Store ~ and # files outside of the working directory
+(setq backup-directory-alist `(("." . "~/.emacs_saves")))
 
 (setq vc-follow-symlinks t) ; Don't ask confirmation to follow symlinks to edit files.
 
