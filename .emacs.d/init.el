@@ -41,7 +41,6 @@
                       ;; multi-term ; Display many termianls inside emacs, not just one.
                       org ; For outlining. This is bundled with Emacs, but I'm using the latest version.
                       outline-magic ; Extensions to ouline mode, which I use heavily in markdown mode.
-                      powerline ; Improve the appearance & density of the Emacs status bar.
                       projectile ; Find file in project (ala CTRL-P).
                       rainbow-delimiters ; Highlight parentheses in rainbow colors.
                       ;; ruby-electric ; Insert matching delimiters; unindent end blocks after you type them.
@@ -780,65 +779,6 @@
 (diminish 'yas-minor-mode "yas")
 (diminish 'osx-keys-minor-mode "")
 (diminish 'undo-tree-mode "")
-
-;;
-;; Powerline: improve the appearance & density of the Emacs status bar (mode line).
-;;
-(require 'powerline)
-
-(defface powerline-white-face
-  '((t (:background "#e0e0e0" :foreground "black" :inherit mode-line)))
-    "Face for powerline")
-(defface powerline-black-face
-  '((t (:background "#191919" :inherit mode-line)))
-  "Face for powerline")
-
-(defun powerline-projectile-project-name (&optional face padding)
-  "Returns a string describing the projectile project for the current buffer. Takes the same arguments as
-   powerline-raw."
-  (powerline-raw (concat "(" (projectile-project-name) ")") face padding))
-
-(defun powerline-personal-theme ()
-  "My customized powerline, copied and slightly modified from the default theme in powerline.el."
-  (interactive)
-  (setq-default mode-line-format
-                '("%e"
-                  (:eval
-                   (let* ((active (powerline-selected-window-active))
-                          (mode-line (if active 'mode-line 'mode-line-inactive))
-                          (face1 (if active 'powerline-active1 'powerline-inactive1))
-                          (face2 (if active 'powerline-active2 'powerline-inactive2))
-                          (separator-left (intern (format "powerline-%s-%s"
-                                                          powerline-default-separator
-                                                          (car powerline-default-separator-dir))))
-                          (separator-right (intern (format "powerline-%s-%s"
-                                                           powerline-default-separator
-                                                           (cdr powerline-default-separator-dir))))
-                          (lhs (list (powerline-raw "%*" 'powerline-black-face 'l)
-                                     (powerline-buffer-id 'powerline-black-face 'l)
-                                     (powerline-raw " " 'powerline-black-face)
-                                     (powerline-projectile-project-name 'powerline-black-face 'l)
-                                     (powerline-raw " " 'powerline-black-face)
-                                     (funcall separator-left mode-line face1)
-                                     (powerline-major-mode face1 'l)
-                                     (powerline-process face1)
-                                     (powerline-minor-modes face1 'l)
-                                     (powerline-narrow face1 'l)
-                                     (powerline-raw " " face1)))
-                          (rhs (list (powerline-raw global-mode-string face2 'r)
-                                     ;; "Version control" - show the modeline of any active VC mode.
-                                     (powerline-vc face1 'r)
-                                     (powerline-raw "%4l" face1 'l) ; Current line number
-                                     (powerline-raw ":" face1 'l)
-                                     (powerline-raw "%3c" face1 'r) ; Current column number
-                                     (powerline-raw " " face1)
-                                     ;; A visual scrollbar shown inside 1x1 char
-                                     (powerline-hud 'powerline-white-face face1))))
-                     (concat (powerline-render lhs)
-                             (powerline-fill face1 (powerline-width rhs))
-                             (powerline-render rhs)))))))
-
-(powerline-personal-theme)
 
 ;;
 ;; Markdown
