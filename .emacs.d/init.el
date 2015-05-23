@@ -131,7 +131,10 @@
 (load custom-file t)
 
 ;; Colorscheme
-(load-theme 'tangotango t) ; A reasonable color scheme which lives in my .emacs.d.
+(add-to-list 'load-path "~/.emacs.d/misc")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'tangotango t)
+;; (load-theme 'solarized-light t)
 ; A font face size of 140 can show 110 chars before wrapping on a 1920x1200 resolution.
 (set-face-attribute 'default nil :height 140)
 
@@ -295,7 +298,6 @@
           (save-buffer-if-dirty)
           (magit-status-and-focus-unstaged))
   "gl" 'magit-log
-  "vu" 'mu4e
   "vp" 'open-root-of-project-in-dired
   "vn" 'open-markdown-file-from-notes-folder
   "vo" (lambda () (interactive) (find-file "~/Dropbox/tasks.org"))
@@ -575,6 +577,7 @@
 ;; Dired mode - using the Emacs file browser.
 ;;
 (require 'dired-details+)
+(setq dired-use-ls-dired nil)
 (setq dired-recursive-copies (quote always))
 (setq dired-recursive-deletes (quote top))
 
@@ -598,6 +601,7 @@
 (evil-define-key 'normal dired-mode-map "cf" 'dired-create-file)
 (evil-define-key 'normal dired-mode-map "x" 'dired-mark)
 (evil-define-key 'normal dired-mode-map "v" 'dired-details-toggle)
+(evil-define-key 'normal dired-mode-map "r" 'revert-buffer)
 ;; The "e" prefix is for execute.
 (evil-define-key 'normal dired-mode-map "ed" 'dired-do-flagged-delete)
 (evil-define-key 'normal dired-mode-map "em" 'dired-do-rename)
@@ -862,12 +866,6 @@
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
 ;;
-;; mu4e - email & gmail in Emacs.
-;; NOTE(philc): This mu4e just doesn't work well; I don't actively use it.
-;;
-;; (require 'mu4e-mode-personal)
-
-;;
 ;; YAML mode, for editing YAML files
 ;;
 (require 'yaml-mode)
@@ -946,7 +944,7 @@
 ;;
 (setq project-folders '("~/Development/liftoff" "~/Development"))
 (setq notes-directories '("~/Dropbox (Personal)/notes" "~/Desktop"))
-(setq notes-file-extensions '(".md" ".sql" ".txt"))
+(setq notes-file-extensions '(".md" ".sql" ".txt" ".org"))
 
 ;; This is set to 600 by default. It shouldn't be the case, but for some reason, the filter-files-in-directory
 ;; function hits this limit.
@@ -1041,11 +1039,6 @@
 ;; Javascript
 ;;
 (setq js-indent-level 2)
-
-;;
-;; Terminal (multi-term mode)
-;;
-;; (require 'multi-term-personal) ; Currently disabled; this doesn't work well.
 
 ;;
 ;; Misc
