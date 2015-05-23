@@ -45,6 +45,7 @@
                       rainbow-delimiters ; Highlight parentheses in rainbow colors.
                       ;; ruby-electric ; Insert matching delimiters; unindent end blocks after you type them.
                       scss-mode
+                      tangotango-theme
                       yaml-mode
                       yasnippet
                       zoom-frm))
