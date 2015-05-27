@@ -763,7 +763,7 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/speck-mode")
 (require 'speck)
 ;; This apparently needs to be a fully-qualified path.
-(setq speck-personal-dictionary-file "/Users/reformist/.personal_dict.txt")
+(setq speck-personal-dictionary-file "/Users/mikeq/.personal_dict.txt")
 (setq speck-engine (quote Aspell))
 (add-hook 'text-mode-hook 'speck-mode)
  ;; Triggers a spell-correction menu. I use this to add words to my dictionary (hit "i").
