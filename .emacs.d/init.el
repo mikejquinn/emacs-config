@@ -37,8 +37,6 @@
                       ido-vertical-mode ; Show ido results vertically.
                       magit
                       markdown-mode
-                      ;; midje-mode ; For editing clojure tests
-                      ;; multi-term ; Display many termianls inside emacs, not just one.
                       org ; For outlining. This is bundled with Emacs, but I'm using the latest version.
                       outline-magic ; Extensions to ouline mode, which I use heavily in markdown mode.
                       projectile ; Find file in project (ala CTRL-P).
