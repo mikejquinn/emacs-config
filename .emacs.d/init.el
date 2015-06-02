@@ -19,7 +19,6 @@
   (package-refresh-contents))
 
 (defvar my-packages '(ace-jump-mode ; Jump to any text on screen in a few keystrokes. Like Vim's EasyMotion.
-                      ;; ac-cider
                       ag ; Silver searcher integration for Emacs
                       autopair ; Insert matching delimiters, e.g. insert closing braces.
                       auto-complete
@@ -41,8 +40,8 @@
                       outline-magic ; Extensions to ouline mode, which I use heavily in markdown mode.
                       projectile ; Find file in project (ala CTRL-P).
                       rainbow-delimiters ; Highlight parentheses in rainbow colors.
-                      ;; ruby-electric ; Insert matching delimiters; unindent end blocks after you type them.
                       scss-mode
+                      smartparens
                       tangotango-theme
                       yaml-mode
                       yasnippet
@@ -62,8 +61,11 @@
 (require 'cider-test)
 (require 'clojure-mode)
 
-(add-to-list 'load-path "~/.emacs.d/g-macs/")
-(require 'gmacs)
+;; Smart parens
+(require 'smartparens-config)
+
+;; (add-to-list 'load-path "~/.emacs.d/g-macs/")
+;; (require 'gmacs)
 
 ;;
 ;; General settings
@@ -681,9 +683,9 @@
 (require 'escreen)
 (escreen-install)
 
-;; KeyRemap4Macbook translates M-j and M-k to these keys.
-(global-set-key (kbd "<A-M-left>") 'escreen-goto-prev-screen)
-(global-set-key (kbd "<A-M-right>") 'escreen-goto-next-screen)
+;; ;; KeyRemap4Macbook translates M-j and M-k to these keys.
+;; (global-set-key (kbd "<A-M-left>") 'escreen-goto-prev-screen)
+;; (global-set-key (kbd "<A-M-right>") 'escreen-goto-next-screen)
 
 ;; I alias/nickname each of my tabs (escreen's numbered screens).
 (setq escreen-number->alias (make-hash-table))
@@ -889,20 +891,20 @@
         (without-confirmation
          (lambda () (compile (concat "cd " (projectile-project-root) " && " command-name)))))))
 
-(evil-leader/set-key-for-mode 'go-mode
+;; (evil-leader/set-key-for-mode 'go-mode
   ;; "r" is a namespace for run-related commands.
-  "rr" (go-save-and-compile-fn "make run")
-  "rb" (go-save-and-compile-fn "make synthetic-benchmark")
-  "rt" (go-save-and-compile-fn "make test")
-  "rw" (go-save-and-compile-fn "make run-web")
+  ;; "rr" (go-save-and-compile-fn "make run")
+  ;; "rb" (go-save-and-compile-fn "make synthetic-benchmark")
+  ;; "rt" (go-save-and-compile-fn "make test")
+  ;; "rw" (go-save-and-compile-fn "make run-web")
   ;; "c" is a namespace for compile-related commands.
-  "cn" 'next-error
-  "cp" 'previous-error
-  "cw" (go-save-and-compile-fn "make web")
-  "cb" (go-save-and-compile-fn "make benchmark")
-  "cc" (go-save-and-compile-fn "make")
-
-  "ai" 'go-import-add)
+  ;; "cn" 'next-error
+  ;; "cp" 'previous-error
+  ;; "cw" (go-save-and-compile-fn "make web")
+  ;; "cb" (go-save-and-compile-fn "make benchmark")
+  ;; "cc" (go-save-and-compile-fn "make")
+  ;; "ai" 'go-import-add
+  ;; )
 
 ;; goimports formats your code and also adds or removes imports as needed.
 ;; goimports needs to be on your path. See https://godoc.org/code.google.com/p/go.tools/cmd/goimports
@@ -920,7 +922,9 @@
   (add-hook 'before-save-hook 'gofmt-before-save-ignoring-errors)
   ;; Make it so comments are line-wrapped properly when filling. It's an oversight that this is missing from
   ;; go-mode.
-  (setq-local fill-prefix "// "))
+  (setq-local fill-prefix "// ")
+  (setq tab-width 4)
+  (setq indent-tabs-mode 1))
 
 (add-hook 'go-mode-hook 'init-go-buffer-settings)
 
