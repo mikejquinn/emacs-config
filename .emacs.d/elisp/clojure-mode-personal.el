@@ -26,6 +26,14 @@
 ;; Prevent the auto-display of the REPL buffer in a separate window after connection is established.
 (setq cider-repl-pop-to-buffer-on-connect nil)
 
+;; Prevent automatically jumping to the error buffer on an exception
+(setq cider-auto-select-error-buffer nil)
+
+;; Use company-mode for auto-completion
+(require 'company)
+(add-hook 'cider-repl-mode-hook 'company-mode)
+(add-hook 'cider-mode-hook 'company-mode)
+
 ;; Don't ask confirmation for closing any open nrepl connections when exiting Emacs.
 ;; http://stackoverflow.com/q/2706527/46237
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
