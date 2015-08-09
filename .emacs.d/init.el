@@ -133,8 +133,8 @@
 ;; Colorscheme
 (add-to-list 'load-path "~/.emacs.d/misc")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'tangotango t)
-;; (load-theme 'solarized-light t)
+;; (load-theme 'tangotango t)
+(load-theme 'solarized-dark t)
 ; A font face size of 140 can show 110 chars before wrapping on a 1920x1200 resolution.
 (set-face-attribute 'default nil :height 140)
 
