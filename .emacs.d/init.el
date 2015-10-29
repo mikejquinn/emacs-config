@@ -22,6 +22,7 @@
                       ag ; Silver searcher integration for Emacs
                       autopair ; Insert matching delimiters, e.g. insert closing braces.
                       auto-complete
+                      company
                       coffee-mode ; For syntax highlighting coffeescript.
                       dired-details+ ; Hides all of the unnecessary file details in dired mode.
                       diminish ; For hiding and shortening minor modes in the modeline
