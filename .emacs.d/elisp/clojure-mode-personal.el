@@ -14,11 +14,18 @@
                                ;; Comment lines using only one semi-colon instead of two.
                                (setq comment-add 0)))
 
+; Enable company-mode auto completion
+(add-hook 'cider-repl-mode-hook #'company-mode)
+(add-hook 'cider-mode-hook #'company-mode)
+
 (evil-define-key 'normal clojure-mode-map "K"
   (lambda () (interactive) (preserve-selected-window (lambda () (call-interactively 'cider-doc)))))
 
-(evil-define-key 'normal clojure-mode-map "gf" 'cider-jump)
+(evil-define-key 'normal clojure-mode-map "gf" 'cider-find-var)
 (evil-define-key 'normal clojure-mode-map "gb" 'cider-jump-back)
+
+; Don't prompt for commands like cider-doc and cider-find-var
+(setq cider-prompt-for-symbol nil)
 
 ;; Hide the uninteresting nrepl-connection and nrepl-server buffers from the buffer list.
 (setq nrepl-hide-special-buffers t)
@@ -214,7 +221,7 @@
      (up 1) (down 1) (alter 1) (table 1) (create 1)                    ; Lobos
      (checker 1)                                                         ; Midje
      (with-eligible-values 1) (when-eligible 1) (check 4)              ; Personal
-     (url-of-form 1)                                                   ; Personal
+     (url-of-form 1) (when-let* 2)                                     ; Personal
      ))
 
 (defun lisp-indent-line-single-semicolon-fix (&optional whole-exp)
