@@ -40,6 +40,7 @@
                       org ; For outlining. This is bundled with Emacs, but I'm using the latest version.
                       outline-magic ; Extensions to ouline mode, which I use heavily in markdown mode.
                       projectile ; Find file in project (ala CTRL-P).
+                      protobuf-mode
                       rainbow-delimiters ; Highlight parentheses in rainbow colors.
                       scss-mode
                       smartparens
@@ -1065,3 +1066,10 @@
   (interactive)
   (setq current-prefix-arg '(4)) ; C-u
   (call-interactively 'info))
+(require 'protobuf-mode)
+(defconst my-protobuf-style
+  '((c-basic-offset . 4)
+    (indent-tabs-mode . nil)))
+
+(add-hook 'protobuf-mode-hook
+          (lambda () (c-add-style "my-protobuf-style" my-protobuf-style t)))
