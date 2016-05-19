@@ -76,6 +76,10 @@
 (require 'lisp-helpers-personal)
 (require 'emacs-utils)
 
+;; Clojure formatting
+(require 'cljfmt)
+(add-hook 'before-save-hook 'cljfmt-before-save)
+
 ;; Anecdotally, this reduces the amount of display flicker on some Emacs startup.
 (setq redisplay-dont-pause t)
 
