@@ -207,7 +207,7 @@
 
 ;; Save buffers whenever they lose focus.
 ;; This obviates the need to hit the Save key thousands of times a day. Inspired by http://goo.gl/2z0g5O.
-(add-hook 'focus-out-hook 'save-buffer-if-dirty) ; This hook is only available in Emacs 24.4+.
+;; (add-hook 'focus-out-hook 'save-buffer-if-dirty) ; This hook is only available in Emacs 24.4+.
 
 (defadvice switch-to-buffer (before save-buffer-now activate) (save-buffer-if-dirty))
 (defadvice other-window (before other-window-now activate) (save-buffer-if-dirty))
