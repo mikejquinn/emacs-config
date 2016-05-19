@@ -957,8 +957,8 @@
 
 ;;
 ;; Project navigation (my own functions on top of dired-mode and projectile)
-;;
-(setq project-folders '("~/dev/work/liftoff" "~/dev/personal"))
+;
+(setq project-folders '("~/work/src/liftoff" "~/work/src/liftoff/ops" "~/dev/personal" "~/dev/go/src/mikeq"))
 (setq notes-directories '("~/Dropbox (Personal)/notes" "~/Desktop"))
 (setq notes-file-extensions '(".md" ".sql" ".txt" ".org"))
 
