@@ -159,6 +159,7 @@
 (setq-default css-indent-offset 2)
 
 (setq-default fill-column 110) ; When wrapping with the Emacs fill commands, wrap at 110 chars.
+(setq column-number-mode t) ; Show column number in the mode line
 (auto-fill-mode t) ; When typing across the fill-column, hard-wrap the line as you type.
 (add-hook 'text-mode-hook 'turn-on-auto-fill) ; Some modes, like markdown, turn off autofill. Force it!
 
