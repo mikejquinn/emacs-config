@@ -33,9 +33,9 @@
                       flx-ido ; Fuzzy matching for ido, which improves the UX of Projectile.
                       go-mode ; For editing Go files.
                       less-css-mode ; Syntax highlighting for LESS CSS files.
-                      ido-ubiquitous ; Make ido completions work everywhere.
-                      ido-vertical-mode ; Show ido results vertically.
-                      magit
+                      ido-ubiquitous ; make ido completions work everywhere.
+                      ido-vertical-mode ; show ido results vertically.
+                      ;; magit
                       markdown-mode
                       org ; For outlining. This is bundled with Emacs, but I'm using the latest version.
                       outline-magic ; Extensions to ouline mode, which I use heavily in markdown mode.
@@ -78,7 +78,8 @@
 (require 'emacs-utils)
 
 ;; Clojure formatting
-(require 'cljfmt)
+;; (require 'cljfmt)
+(load "$REPOS/liftoff/exp/emacs/cljfmt.el")
 (add-hook 'before-save-hook 'cljfmt-before-save)
 
 ;; Anecdotally, this reduces the amount of display flicker on some Emacs startup.
@@ -119,6 +120,12 @@
 ;; (savehist-mode t) ; Save your minibuffer history across Emacs sessions. UX win!
 
 (setq text-scale-mode-step 1.1) ;; When changing font size, change in small increments.
+
+(global-font-lock-mode t)
+(setq font-lock-maximum-decoration t
+      font-lock-maximum-size nil)
+;; (setq font-lock-support-mode 'fast-lock-mode ; lazy-lock-mode
+      ;; fast-lock-cache-directories '("~/.emacs-flc"))
 
 ;; Include path information in duplicate buffer names (e.g. a/foo.txt b/foo.txt)
 (setq uniquify-buffer-name-style 'forward)
@@ -215,16 +222,16 @@
 ;; This obviates the need to hit the Save key thousands of times a day. Inspired by http://goo.gl/2z0g5O.
 ;; (add-hook 'focus-out-hook 'save-buffer-if-dirty) ; This hook is only available in Emacs 24.4+.
 
-(defadvice switch-to-buffer (before save-buffer-now activate) (save-buffer-if-dirty))
-(defadvice other-window (before other-window-now activate) (save-buffer-if-dirty))
-(defadvice windmove-up (before other-window-now activate) (save-buffer-if-dirty))
-(defadvice windmove-down (before other-window-now activate) (save-buffer-if-dirty))
-(defadvice windmove-left (before other-window-now activate) (save-buffer-if-dirty))
-(defadvice windmove-right (before other-window-now activate) (save-buffer-if-dirty))
+;; (defadvice switch-to-buffer (before save-buffer-now activate) (save-buffer-if-dirty))
+;; (defadvice other-window (before other-window-now activate) (save-buffer-if-dirty))
+;; (defadvice windmove-up (before other-window-now activate) (save-buffer-if-dirty))
+;; (defadvice windmove-down (before other-window-now activate) (save-buffer-if-dirty))
+;; (defadvice windmove-left (before other-window-now activate) (save-buffer-if-dirty))
+;; (defadvice windmove-right (before other-window-now activate) (save-buffer-if-dirty))
 
 ;; This hasn't been a problem for me yet, but advising "select-window" may cause problems. For instance, it's
 ;; called every time a character is typed in isearch mode.
-(defadvice select-window (before select-window activate) (save-buffer-if-dirty))
+;; (defadvice select-window (before select-window activate) (save-buffer-if-dirty))
 
 ;;
 ;; Evil mode -- Vim keybindings for Emacs.
@@ -299,13 +306,8 @@
   "a" 'projectile-ack
   "d" 'projectile-dired
   "D" (lambda () (interactive) (-> (buffer-file-name) file-name-directory dired))
-  ;; "vt" 'multi-term
-  ;; "v" is a mnemonic prefix for "view X".
-  "gs" '(lambda() (interactive)
-          (save-buffer-if-dirty)
-          (magit-status-and-focus-unstaged))
-  "gl" 'magit-log
   "vp" 'open-root-of-project-in-dired
+  "vr" 'open-root-of-ansible-role-in-dired
   "vn" 'open-markdown-file-from-notes-folder
   "vo" (lambda () (interactive) (find-file "~/Dropbox/tasks.org"))
   "ve" (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
@@ -368,6 +370,7 @@
 (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
 (define-key evil-insert-state-map (kbd "C-u") 'backward-kill-line)
 (define-key evil-insert-state-map (kbd "C-d") 'delete-char)
+(global-set-key (kbd "<A-backspace>") 'backward-kill-word)
 (global-set-key (kbd "C-h") 'backward-delete-char) ; Here we clobber C-h, which accesses Emacs's help.
 
 ;; Commenting via NERD commentor.
@@ -894,16 +897,16 @@
        "gf" 'godef-jump
        "K" 'godef-describe)))
 
-(defun go-save-and-compile-fn (command-name)
-  "Returns a function for the purpose of binding to a key which saves the current buffer and then
-   runs the given command in the root of the go project."
-  (lexical-let ((command-name command-name))
-    #'(lambda ()
-        (interactive)
-        (save-buffer)
-        (message command-name)
-        (without-confirmation
-         (lambda () (compile (concat "cd " (projectile-project-root) " && " command-name)))))))
+;; (defun go-save-and-compile-fn (command-name)
+;;   "Returns a function for the purpose of binding to a key which saves the current buffer and then
+;;    runs the given command in the root of the go project."
+;;   (lexical-let ((command-name command-name))
+;;     #'(lambda ()
+;;         (interactive)
+;;         (save-buffer)
+;;         (message command-name)
+;;         (without-confirmation
+;;          (lambda () (compile (concat "cd " (projectile-project-root) " && " command-name)))))))
 
 ;; (evil-leader/set-key-for-mode 'go-mode
   ;; "r" is a namespace for run-related commands.
@@ -924,16 +927,16 @@
 ;; goimports needs to be on your path. See https://godoc.org/code.google.com/p/go.tools/cmd/goimports
 (setq gofmt-command "goimports")
 
-(defun gofmt-before-save-ignoring-errors ()
-  "Don't pop up syntax errors in a new window when running gofmt-before-save."
-  (interactive)
-  (flet ((gofmt--process-errors (&rest args) t)) ; Don't show any syntax error output
-    (gofmt-before-save)))
+;; (defun gofmt-before-save-ignoring-errors ()
+;;   "Don't pop up syntax errors in a new window when running gofmt-before-save."
+;;   (interactive)
+;;   (cl-letf ((gofmt--process-errors (&rest args) t)) ; Don't show any syntax error output
+;;     (gofmt-before-save)))
 
 (defun init-go-buffer-settings ()
   ;; I have Emacs configured to save when switching buffers, so popping up errors when I switch buffers is
   ;; really jarring.
-  (add-hook 'before-save-hook 'gofmt-before-save-ignoring-errors)
+  (add-hook 'before-save-hook 'gofmt-before-save)
   ;; Make it so comments are line-wrapped properly when filling. It's an oversight that this is missing from
   ;; go-mode.
   (setq-local fill-prefix "// ")
@@ -951,14 +954,10 @@
                                         (+ 1 (match-end 1)))))))
 
 ;;
-;; Magit - for staging hunks and making commits to git from within Emacs.
-;;
-(require 'magit-mode-personal)
-
-;;
 ;; Project navigation (my own functions on top of dired-mode and projectile)
 ;
 (setq project-folders '("~/work/src/liftoff" "~/work/src/liftoff/ops" "~/dev/personal" "~/dev/go/src/mikeq"))
+(setq ansible-role-folers '("~/work/src/liftoff/ops/ansible/roles"))
 (setq notes-directories '("~/Dropbox (Personal)/notes" "~/Desktop"))
 (setq notes-file-extensions '(".md" ".sql" ".txt" ".org"))
 
@@ -1017,6 +1016,26 @@
               (when (= 1 (length (window-list)))
                 (escreen-set-tab-alias (file-name-nondirectory project)))))))))
 
+(defun open-root-of-ansible-role-in-dired ()
+  "Prompts for the name of an ansible role which exists in the ansible role directory and opens a dired window
+   in the root of the role folder.
+   Once a role is chosen, the current elscreen-tab is set to be the name of that role."
+  (interactive)
+  (let ((all-project-folders (->> ansible-role-folers
+                                  (mapcar (lambda (file)
+                                            (filter-files-in-directory file 'file-directory-p nil)))
+                                  flatten)))
+    (let ((project-to-open (ido-completing-read "Role folder: "
+                                                (mapcar 'file-name-nondirectory all-project-folders)
+                                                nil t)))
+      (->> all-project-folders
+           (remove-if-not (lambda (project) (string/ends-with project (concat "/" project-to-open))))
+           first
+           ((lambda (project)
+              (dired project)
+              ;; If we invoke this inside of a split, don't set the tab's title.
+              (when (= 1 (length (window-list)))
+                (escreen-set-tab-alias (file-name-nondirectory project)))))))))
 ;;
 ;; JSON
 ;;
@@ -1031,23 +1050,23 @@
 ;;
 (add-hook 'java-mode-hook (lambda () (setq c-basic-offset 2)))
 
-;; TODO(philc): It would be nice to parameterize this further and combine it with go-save-and-compile-fn.
-(defun java-save-and-compile-fn (command-name)
-  "Returns a function for the purpose of binding to a key which saves the current buffer and then
-   runs the given command in the root of the go project."
-  (lexical-let ((command-name command-name))
-    #'(lambda ()
-        (interactive)
-        (save-buffer)
-        (message command-name)
-        (without-confirmation
-         (lambda ()
-           (compile (concat "cd " (locate-dominating-file (buffer-file-name) "build.xml")
-                            " && " command-name)))))))
+;; ;; TODO(philc): It would be nice to parameterize this further and combine it with go-save-and-compile-fn.
+;; (defun java-save-and-compile-fn (command-name)
+;;   "Returns a function for the purpose of binding to a key which saves the current buffer and then
+;;    runs the given command in the root of the go project."
+;;   (lexical-let ((command-name command-name))
+;;     #'(lambda ()
+;;         (interactive)
+;;         (save-buffer)
+;;         (message command-name)
+;;         (without-confirmation
+;;          (lambda ()
+;;            (compile (concat "cd " (locate-dominating-file (buffer-file-name) "build.xml")
+;;                             " && " command-name)))))))
 
 (evil-leader/set-key-for-mode 'java-mode
   ;; ant -find searches up the directory tree and finds the closest build file.
-  "cc" (java-save-and-compile-fn "ant debug -silent")
+  ;; "cc" (java-save-and-compile-fn "ant debug -silent")
   "cn" 'next-error
   "cp" 'previous-error)
 
@@ -1067,6 +1086,12 @@
   (interactive)
   (setq current-prefix-arg '(4)) ; C-u
   (call-interactively 'info))
+
+(setq tramp-default-method "ssh")
+(setq require-final-newline t)
+
+;; (byte-recompile-directory (expand-file-name "/usr/local/Cellar/emacs-mac/emacs-24.5-z-mac-5.11/share/emacs/24.5/") 0)
+
 (require 'protobuf-mode)
 (defconst my-protobuf-style
   '((c-basic-offset . 4)

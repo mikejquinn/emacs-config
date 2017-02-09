@@ -33,11 +33,11 @@
 ;; Prevent the auto-display of the REPL buffer in a separate window after connection is established.
 (setq cider-repl-pop-to-buffer-on-connect nil)
 
-;; Don't ask confirmation for closing any open nrepl connections when exiting Emacs.
-;; http://stackoverflow.com/q/2706527/46237
-(defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
-  "Prevent annoying \"Active processes exist\" query when you quit Emacs."
-  (flet ((process-list ())) ad-do-it))
+;; ;; Don't ask confirmation for closing any open nrepl connections when exiting Emacs.
+;; ;; http://stackoverflow.com/q/2706527/46237
+;; (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
+;;   "Prevent annoying \"Active processes exist\" query when you quit Emacs."
+;;   (flet ((process-list ())) ad-do-it))
 
 (evil-define-operator evil-cider-eval (beg end)
   "Evaluate the text region moved over by an evil motion."
@@ -177,15 +177,18 @@
       (cider-interactive-eval form))))
 
 (evil-leader/set-key-for-mode 'clojure-mode
-  "eap" (lambda () (interactive) (with-nrepl-connection-of-current-buffer 'cider-eval-paragraph))
-  "ee" (lambda () (interactive) (with-nrepl-connection-of-current-buffer 'cider-show-cider-buffer))
-  "ek" (lambda () (interactive) (with-nrepl-connection-of-current-buffer 'cider-find-and-clear-repl-buffer))
+  ;; "eap" (lambda () (interactive) (with-nrepl-connection-of-current-buffer 'cider-eval-paragraph))
+  ;; "ee" (lambda () (interactive) (with-nrepl-connection-of-current-buffer 'cider-show-cider-buffer))
+  ;; "ek" (lambda () (interactive) (with-nrepl-connection-of-current-buffer 'cider-find-and-clear-repl-buffer))
+  "eap" (lambda () (interactive) (cider-eval-paragraph))
+  "ee" (lambda () (interactive) (cider-show-cider-buffer))
+  "ek" (lambda () (interactive) (cider-find-and-clear-repl-output))
   ;; Note that I actually use cider-load-file here, not cider-eval-buffer, because it gives useful line numbers
   ;; on exceptions.
   "eb" (lambda ()
          (interactive)
          (save-buffer)
-         (with-nrepl-connection-of-current-buffer 'cider-load-buffer))
+         (cider-load-buffer))
   ;; cider-restart-nrepl is more handy than cider-jack-in, because it doesn't leave existing repls running.
   "en" 'my-cider-restart-nrepl
   "es" 'my-cider-eval-current-sexp
@@ -193,18 +196,29 @@
   "er" (lambda () (interactive) (with-nrepl-connection-of-current-buffer 'cider-eval-region))
   ;; Shortcuts for printing the results of expressions. These eval functions take a second param which prints
   ;; result of the expression.
-  "eps" (lambda () (interactive) (with-nrepl-connection-of-current-buffer
-                                  (lambda () (my-cider-eval-current-sexp t))))
-  "epx" (lambda () (interactive) (with-nrepl-connection-of-current-buffer
-                                  'my-cider-eval-and-print-defun-at-point))
+  ;; "eps" (lambda () (interactive) (with-nrepl-connection-of-current-buffer
+  ;;                                 (lambda () (my-cider-eval-current-sexp t))))
+  ;; "epx" (lambda () (interactive) (with-nrepl-connection-of-current-buffer
+  ;;                                 'my-cider-eval-and-print-defun-at-point))
+  "eps" (lambda () (interactive) (my-cider-eval-current-sexp t))
+  "epx" (lambda () (interactive) (my-cider-eval-and-print-defun-at-point))
+  ;; "rt" (lambda ()
+  ;;        (interactive)
+  ;;        (with-nrepl-connection-of-current-buffer 'my-cider-run-test-at-point))
+  ;; "rT" (lambda ()
+  ;;        (interactive)
+  ;;        (save-buffer)
+  ;;        (with-nrepl-connection-of-current-buffer 'cider-load-buffer)
+  ;;        (with-nrepl-connection-of-current-buffer 'my-cider-run-tests-in-ns))
   "rt" (lambda ()
          (interactive)
-         (with-nrepl-connection-of-current-buffer 'my-cider-run-test-at-point))
+         (my-cider-run-test-at-point))
   "rT" (lambda ()
          (interactive)
          (save-buffer)
-         (with-nrepl-connection-of-current-buffer 'cider-load-buffer)
-         (with-nrepl-connection-of-current-buffer 'my-cider-run-tests-in-ns)))
+         (cider-load-buffer)
+         (my-cider-run-tests-in-ns))
+  )
 
 ;; Highlight parentheses in rainbow colors.
 (require 'rainbow-delimiters)

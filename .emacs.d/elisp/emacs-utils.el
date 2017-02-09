@@ -38,9 +38,9 @@
           (funcall fn))
       (setenv name original-value))))
 
-(defun without-confirmation (fn)
-  (flet ((y-or-n-p (&rest args) t)) ; Skip the confirmation prompts.
-    (funcall fn)))
+;; (defun without-confirmation (fn)
+;;   (flet ((y-or-n-p (&rest args) t)) ; Skip the confirmation prompts.
+;;     (funcall fn)))
 
 (defun preserve-selected-window (f)
   "Runs the given function and then restores focus to the original window. Useful when you want to invoke

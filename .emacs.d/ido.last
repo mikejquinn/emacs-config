@@ -1,0 +1,358 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/Users/mikeq/work/src/interview/console_test/" . "go/")
+ ("/Users/mikeq/work/src/interview/" . "console_test/")
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresz/" . "meta/")
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresdb/" . "files/")
+ ("/Users/mikeq/dotfiles/" . "hammerspoon/")
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/h2go/" . "meta/")
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/" . "h2go/")
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/governor/" . "meta/")
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/" . "roles/")
+ ("/Users/mikeq/dev/go/src/github.com/aws/aws-sdk-go/service/" . "iam/")
+ ("/Users/mikeq/dev/go/src/github.com/aws/aws-sdk-go/" . "service/")
+ ("/Users/mikeq/dev/go/src/github.com/aws/" . "aws-sdk-go/")
+ ("/Users/mikeq/work/src/liftoff/vendor/github.com/aws/aws-sdk-go/" . "aws/")
+ ("/Users/mikeq/work/src/liftoff/vendor/github.com/aws/" . "aws-sdk-go/")
+ ("/Users/mikeq/work/src/liftoff/vendor/github.com/" . "aws/")
+ ("/Users/mikeq/work/src/liftoff/vendor/" . "github.com/")
+ ("/Users/mikeq/Downloads/liftoff/" . "tetris/")
+ ("/Users/mikeq/dev/go/src/github.com/cespare/" . "reflex/")
+ ("/Volumes/QUINNUSB/" . "tetris/")
+ ("/Users/mikeq/work/" . "src/")
+ ("/Volumes/" . "QUINNUSB/")
+ ("/" . "Users/")
+ ("/Users/mikeq/work/src/interview/tetris/" . "cpp/")
+ ("/Users/mikeq/work/src/" . "interview/")
+ ("/Users/mikeq/work/src/liftoff/ops/credentials/" . "dbs/")
+ ("/Users/mikeq/work/src/liftoff/ops/" . "credentials/")
+ ("/Users/mikeq/dev/go/src/mikeq/" . "inrange/")
+ ("/Users/mikeq/dev/carbon/lib/" . "carbon/")
+ ("/Users/mikeq/dev/carbon/" . "lib/")
+ ("/Users/mikeq/dev/work/airflow/" . "home/")
+ ("/Users/mikeq/work/src/liftoff/django_admin/env-1.9.7/lib/python2.7/site-packages/django/" . "contrib/")
+ ("/Users/mikeq/work/src/liftoff/django_admin/env-1.9.7/lib/python2.7/site-packages/" . "django/")
+ ("/Users/mikeq/work/src/liftoff/django_admin/env-1.9.7/lib/python2.7/" . "site-packages/")
+ ("/Users/mikeq/work/src/liftoff/django_admin/env-1.9.7/lib/" . "python2.7/")
+ ("/Users/mikeq/work/src/liftoff/django_admin/env-1.9.7/" . "lib/")
+ ("/Users/mikeq/work/src/liftoff/django_admin/" . "env-1.9.7/")
+ ("/Users/mikeq/work/src/liftoff/" . "ops/")
+ ("/Users/mikeq/Downloads/liftoff 2/src/main/" . "java/")
+ ("/Users/mikeq/Downloads/liftoff 2/src/" . "main/")
+ ("/Users/mikeq/Downloads/liftoff 2/" . "src/")
+ ("/Users/mikeq/Dropbox (Personal)/notes/" . "liftoff/")
+ ("/Users/mikeq/Dropbox (Personal)/" . "notes/")
+ ("/Users/mikeq/work/src/liftoff/go/" . "stringid/")
+ ("/Users/mikeq/dev/go/src/github.com/liftoffio/" . "pretty/")
+ ("/Users/mikeq/dev/go/src/github.com/" . "aws/")
+ ("/Users/mikeq/dev/go/src/" . "github.com/")
+ ("/Users/mikeq/dev/go/" . "src/")
+ ("/Users/mikeq/dev/rust/qlisp/" . "src/")
+ ("/Users/mikeq/dev/rust/tetris/" . "src/")
+ ("/Users/mikeq/dev/rust/test/" . "src/")
+ ("/Users/mikeq/dev/rust/" . "qlisp/")
+ ("/Users/mikeq/dev/" . "rust/")
+ ("/Users/" . "mikeq/")
+ ("/Users/mikeq/Desktop/tetris interview/tetris/" . "java/")
+ ("/ubuntu@user-data-store118.us-e.ec2.liftoff.io:/home/" . "ubuntu/")
+ ("/user-data-store118.us-e.ec2.liftoff.io:/home/" . "ubuntu/")
+ ("/user-data-store118.us-e.ec2.liftoff.io:/" . "home/")
+ ("/Users/mikeq/Downloads/andy_tetris/" . "ruby/")
+ ("/Users/mikeq/Desktop/tetris interview/cse_tetris/" . "ruby/")
+ ("/Users/mikeq/Desktop/tetris interview/" . "tetris/")
+ ("/Users/mikeq/dev/work/liftoff/ops/ansible-repo/lib/ansible/modules/core/cloud/" . "amazon/")
+ ("/Users/mikeq/dev/work/liftoff/ops/ansible-repo/lib/ansible/modules/core/" . "files/")
+ ("/Users/mikeq/dev/work/liftoff/ops/ansible-repo/lib/ansible/modules/" . "core/")
+ ("/Users/mikeq/dev/work/liftoff/ops/ansible-repo/lib/ansible/" . "modules/")
+ ("/Users/mikeq/dev/work/liftoff/ops/ansible-repo/" . "lib/")
+ ("/Users/mikeq/dev/work/liftoff/ops/" . "ansible-repo/")
+ ("/Users/mikeq/Desktop/interview/tetris/" . "js/")
+ ("/Users/mikeq/Downloads/" . "liftoff 2/")
+ ("/Users/mikeq/dev/work/github.com/" . "cespare/")
+ ("/Users/mikeq/dev/work/" . "jenkins/")
+ ("/Users/mikeq/dev/work/liftoff/" . "go/")
+ ("/Users/mikeq/dev/work/liftoff/beancounter/testdata/fixtures/" . "pinpoint_logs/")
+ ("/Users/mikeq/dev/work/liftoff/beancounter/testdata/" . "fixtures/")
+ ("/Users/mikeq/dev/work/liftoff/beancounter/" . "testdata/")
+ ("/Users/mikeq/Desktop/tetris/" . "java/")
+ ("/Users/mikeq/Desktop/" . "tetris_mike_z/")
+ ("/Users/mikeq/" . ".hammerspoon/")
+ ("/Users/mikeq/Development/liftoff/haggler/" . "deploy/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/Users/mikeq/"
+ "/Users/mikeq/work/src/interview/console_test/go/"
+ "/Users/mikeq/.hammerspoon/"
+ "/Users/mikeq/dev/rust/qlisp/"
+ "/Users/mikeq/photos/"
+ "/Users/mikeq/work/src/interview/tetris/cpp/"
+ "/Users/mikeq/timeseries/"
+ "/Users/mikeq/work/src/interview/console_test/cpp/"
+ "/Users/mikeq/dotfiles/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/h2go/meta/"
+ "/Users/mikeq/work/src/interview/console_test/c/"
+ "/Users/mikeq/work/src/interview/tetris/python/"
+ "/Users/mikeq/dotfiles/hammerspoon/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresz/meta/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresz/templates/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresz/files/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/h2go/templates/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/lobos/tasks/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresdb/templates/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/deploy-notifications/tasks/"
+ "/Users/mikeq/Downloads/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresz/tasks/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/nginx/tasks/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/common/tasks/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/h2go/tasks/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/tasks/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresdb/files/"
+ "/Users/mikeq/work/src/liftoff/ops/credentials/"
+ "/Users/mikeq/work/src/liftoff/ops/credentials/dbs/"
+ "/Users/mikeq/work/src/liftoff/ops/ansible/roles/governor/meta/"
+ "/Users/mikeq/dev/go/src/github.com/aws/aws-sdk-go/service/iam/"
+ "/Users/mikeq/work/src/liftoff/vendor/github.com/aws/aws-sdk-go/aws/"
+ "/Users/mikeq/Downloads/liftoff/tetris/"
+ "/Users/mikeq/dev/go/src/github.com/cespare/reflex/"
+ "/Users/mikeq/Downloads/tetris/"
+ "/Volumes/QUINNUSB/tetris/"
+ "/Users/mikeq/work/src/interview/tetris/js/"
+ "/Users/mikeq/dev/rust/qlisp/src/"
+ "/Users/mikeq/Desktop/tetris_mike_z/"
+ "/Users/mikeq/work/src/interview/tetris/java/"
+ "/Volumes/QUINNUSB/"
+ "/Users/mikeq/work/src/liftoff/ops/credentials/apple/"
+ "/Users/mikeq/dev/go/src/mikeq/inrange/"
+ "/Users/mikeq/dev/carbon/lib/carbon/"
+ "/Users/mikeq/Desktop/"
+ "/Users/mikeq/dev/work/jenkins/"
+ "/Users/mikeq/work/src/liftoff/django_admin/env-1.9.7/lib/python2.7/site-packages/django/contrib/admin/"
+ "/Users/mikeq/dev/work/airflow/"
+ "/Users/mikeq/Downloads/liftoff 2/src/main/java/"
+ "/Users/mikeq/Desktop/tetris interview/tetris/java/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "test.go"
+ "console.go"
+ "interview.py"
+ "videobr.json"
+ "init.lua"
+ "lang.org"
+ "caleb.go"
+ "photos.go"
+ "graph.dot"
+ "board.h"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/Users/mikeq/" (22675 31673 0 0) "work/" "VirtualBox VMs/" "videobr.json" "timeseries/" "Snapshots/" "Sites/" "Screen Shot 2017-01-12 at 11.21.41 AM.png" "schema" "rubicon-clicks.log" "reset.sh" "raw-installs.log.gz" "Public/" "Pictures/" "photos/" "personal_dict.txt" "out.gz" "Music/" "Movies/" "Library/" "interview.py" "interstitials.csv" "impressions.log.gz" "gumshoe" "Google Drive/" "Dropbox (Personal)/" "Dropbox (Liftoff Mobile)/" "Dropbox/" "Downloads/" "dotfiles/" "Documents/" "dev/" "Desktop/" "customers.csv" "countries.csv" "cities.csv" "bin/" "bids.log.gz" "banners.csv" "ascendio-campaigns.csv" "apps.csv" "Applications/" "app_titles.csv" ".zshrc" ".zshenv" ".zsh_history" ".zsh-update" ".zcompdump-Michael’s MacBook Pro-5.2" ".zcompdump" ".yjp/" ".Xauthority" ".wireshark-etc/" ".wireshark/" ".weechat/" ".vscode/" ".virtualenv/" ".vimrc" ".viminfo" ".vim/" ".vagrant.d/" ".Trash/" ".timetrap.db" ".tigrc" ".ti-sheet" ".subversion/" ".ssh/" ".spacemacs" ".slate" ".rustup/" ".rnd" ".rediscli_history" ".recentf~" ".rbenv/" ".putty/" ".psqlrc" ".psql_history" ".personal_dict.txt" ".parallel/" ".oracle_jre_usage/" ".oh-my-zsh/" ".npm/" ".netrc" ".mysql_history" ".m2-bak/" ".m2/" ".local/" ".liftoff_profile" ".lesshst" ".lein/" ".itmstransporter/" ".iterm2_shell_integration.zsh" ".iterm2/" ".htoprc" ".history" ".hammerspoon/" ".gumtwo-history" ".gsutil/" ".gradle/" ".gpg-agent-info" ".gnupg/" ".gitignore_global" ".gitconfig" ".gem/" ".fontconfig/" ".fasd" ".emacs_saves/" ".emacs.d/" ".emacs-flc/" ".DS_Store" ".dropbox/" ".dockercfg" ".distlib/" ".cups/" ".config/" ".cocoapods/" ".cljfmt" ".CFUserTextEncoding" ".cargo/" ".cache/" ".bundle/" ".boot2docker/" ".bash_sessions/" ".bash_history" ".aws/" ".aspell.en.prepl" ".ansible_test_module_arguments" ".ansible_module_generated" ".ansible.cfg" ".ansible/" ".android/" ".aliases" ".#.recentf" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/gumtwo/" (22674 34954 0 0) "yasm-temp-585af154" "work/" "wireproto/" "schema" "reset.sh" "README.md" "metadb/" "jit/" "installs.log.gz" "impressions.log.gz" "import" "gumtwo/" "gsql/" "g2admin" "doc/" "db2/" "db1/" "db/" "cmd/" "bin/" "backingstore/" ".projectile" ".gitignore" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/gumtwo/cmd/" (22675 31591 0 0) "import/" "gumtwod/" "g2/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/gumtwo/cmd/import/" (22675 31644 0 0) "types.go" "server.go" "schema.go" "rangewriter.go" "metrics_test.go" "metrics.go" "main.go" "dimensions_test.go" "dimensions.go" "cache_test.go" "cache.go" "../" "./")
+
+ ("/Users/mikeq/work/src/interview/console_test/go/" (22675 31208 0 0) "Readme.txt" "console.go" "console" "../" "./")
+
+ ("/Users/mikeq/work/src/interview/console_test/" (22661 42234 0 0) "ruby/" "README.txt" "python/" "Makefile" "java_win/" "java/" "go/" "cpp/" "c#/" "c/" ".gitignore" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/work/src/interview/" (22661 42234 0 0) "tetris/" "README.md" "datascience/" "cse_tetris/" "console_test/" ".gitignore" ".git/" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/" (22674 11852 0 0) "workbench/" "watchman/" "vendor/" "tools/" "spotter/" "skipper/" "shared_lib/" "sdks/" "scribe/" "rtbnotify/" "redis_web/" "redis/" "queso/" "protobuf/" "prospector/" "postgres_db/" "pinpoint/" "ops/" "monarch/" "ml_lib/" "loft/" "jobs/" "interceptor/" "helmsman/" "haggler/" "h2go/" "gumtwo/" "gumshoedb_deploy/" "go/" "failsafe/" "exploration_cache/" "exp/" "docs/" "django_admin/" "den2json/" "dashgen/" "cataloger/" "canvasser/" "bookie/" "bloodhound/" "beancounter/" "assetc/" "adspider/" "adpreview/" "admarkup/" "adexp/" "a10db/" ".vagrant/" ".gitmodules" ".gitignore" ".git/" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/h2go/" (22675 30657 0 0) "uds_test.go" "uds.go" "testdata/" "staging/" "s3.go" "runit/" "README.md" "persona_test.go" "persona.go" "pauseerrors_test.go" "pauseerrors.go" "paniclog_test.go" "paniclog.go" "nobidder/" "maxmind_geoip2_isp.mmdb" "maxmind_geoip2_city.mmdb" "maxkeepalive_test.go" "maxkeepalive.go" "log_test.go" "log.go" "log/" "j2p" "internal/" "integration_test.go" "haggler_test.go" "haggler.go" "h2go" "genfiles.sh" "countwriter_test.go" "countwriter.go" "cmd/" "bin/" "awscreds/" "auction_test.go" "auction.go" "ansible/" "androiddevices_test.go" "androiddevices.go" "adgroupbidtimes_test.go" "adgroupbidtimes.go" "a10db_test.go" "a10db.go" ".projectile" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/h2go/internal/" (22552 50237 0 0) "rtbexchange/" "proto/" "h2gotest/" "gost/" "geoip/" "eventbuffer/" "bitset/" "bidder/" "alloc/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/h2go/internal/rtbexchange/" (22675 30657 0 0) "vungle_test.go" "vungle.go" "util_test.go" "util.go" "useragent_test.go" "useragent.go" "testdata/" "rubicon_test.go" "rubicon_easyjson.go" "rubicon.go" "rtbexchange_test.go" "rtbexchange.go" "openx_test.go" "openx.go" "openrtb23_test.go" "openrtb23_easyjson.go" "openrtb23.go" "native_test.go" "native_easyjson.go" "native.go" "mopub_test.go" "mopub_easyjson.go" "mopub.go" "mobfox_test.go" "mobfox_easyjson.go" "mobfox.go" "inneractive_test.go" "inneractive.go" "flurry_test.go" "flurry_easyjson.go" "flurry.go" "doubleclick_test.go" "doubleclick.go" "devicemodel_test.go" "devicemodel.go" "appnexus_test.go" "appnexus_easyjson.go" "appnexus.go" "applovin.go" "aolone_test.go" "aolone.go" "a9_test.go" "a9_easyjson.go" "a9.go" "../" "./")
+
+ ("/Users/mikeq/Desktop/" (22650 52798 0 0) "Screen Shot 2017-01-12 at 5.28.28 PM.png" "Screen Shot 2017-01-12 at 5.26.42 PM.png" "Screen Shot 2017-01-12 at 4.03.09 PM.png" "Screen Shot 2017-01-12 at 2.58.20 PM.png" "Screen Shot 2017-01-12 at 2.57.06 PM.png" "Screen Shot 2017-01-12 at 2.41.48 PM.png" "Screen Shot 2016-12-16 at 11.29.51 PM.png" "Screen Shot 2016-12-13 at 1.16.28 PM.png" "Screen Shot 2016-10-29 at 11.47.25 AM.png" "Old iPhoto Imports/" "[]o/" ".localized" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/Downloads/" (22653 44544 0 0) "W Lakeland Revised Capital bid.xlsx" "W Lakeland pdf.pdf" "Untitled.txt" "tig-cheat-sheet.pdf" "teensy.dmg" "Tango Dark (modified).itermcolors" "Statement_Sep 2016.pdf" "Statement_Oct 2016.pdf" "Statement_Nov 2016.pdf" "Statement_Dec 2016.pdf" "Solarized Dark.itermcolors" "phyllis Residential_Lease_or_MonthtoMonth_Rental_Agreement__1213_ts94971.pdf" "OG_Exhibit_106_Lead_Based_Paint_Test_Authorization 7 22 2015.pdf" "Multiple_Statements_Download.pdf" "Mike Quinn All Risks Home Renewal08272016.pdf" "Michael Quinn - TransUnion.pdf" "Melissa Quinn - TransUnion.pdf" "Lucario.itermcolors" "Legend of Zelda 25th Anniversary Symphony.zip" "Kick off of  Tunes' Postback conference .mp4" "IMG_9950.JPG" "IMG_9949 2.JPG" "github-recovery-codes.txt" "ergodox_ez_firmware_qvnppq.hex" "ergodox_ez_firmware_qldzoa.hex" "ergodox_ez_firmware_qbzarq.hex" "ergodox_ez_firmware_qarjrk.hex" "ergodox_ez_firmware_kwyabk.hex" "ergodox_ez_firmware_kmjydq.hex" "ergodox_ez_firmware_kllvdk.hex" "ergodox_ez_firmware_kjzodk.hex" "ergodox_ez_firmware_kjznek.hex" "check_10386644.pdf" "check_10386644 (1).pdf" "check_10056702.pdf" "blink_both.zip" "blink_both/" "application for rent.pdf" "andrew_huang_tetris.zip" "andrew_huang_tetris/" "2017-01-01T00.json" "1D54E255-FD69-4C39-939D-AD6E3D11006B.MP4" "1346 Park Drive Lease.pdf" "10062016-100066600010_20160906.pdf" ".localized" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/tasks/" (22648 6670 0 0) "watchman_snooze.yml" "watchman_remove.yml" "watchman.yml" "statusz_text.yml" "smtp_credentials.yml" "set_up_ec2_raid.yml" "runit_sync.yml" "rsync.yml" "push_statusz.yml" "ebs.yml" "docker.yml" "dns_delete.yml" "dns.yml" "deploy_go_util.yml" "deploy_clj_project.yml" "create_us_east_1_ec2_instance.yml" "create_eu_central_1_ec2_instance.yml" "create_ap_southeast_1_ec2_instance.yml" "copy_tls_certs.yml" "copy_nginx_tls_certs.yml" "aws_tools.yml" "aws_credentials.yml" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/h2go/templates/" (22645 27357 0 0) "run.sh.j2" "logbackup.toml.j2" "../" "./")
+
+ ("/Users/mikeq/dotfiles/hammerspoon/" (22639 52601 0 0) "keybindings.lua" "init.lua" "../" "./")
+
+ ("/Users/mikeq/dotfiles/" (22646 22362 0 0) "zshrc" "zshenv" "tigrc" "ssh-config" "slate" "psqlrc" "profiles.clj" "personal_dict.txt" "KeyRemap4MacBook/" "homebrew-packages" "hammerspoon/" "gitconfig" "config.sh" "config.Darwin.sh" "aliases" ".git/" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/.hammerspoon/" (22639 52601 0 0) "keybindings.lua" "init.lua" "../" "./")
+
+ ("/Users/mikeq/Dropbox/" (22647 51447 0 0) "tasks.org" "Shares/" "Receipts/" "Public/" "notes/" "Icon
+" "1Password.agilekeychain/" ".ynabSettings.yroot" ".ws.agile.1Password.settings" ".DS_Store" ".dropbox.cache/" ".dropbox" "../" "./")
+
+ ("/Users/mikeq/dev/rust/" (22581 19434 0 0) "timeseries/" "tetris/" "test/" "qlisp/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/gumtwo/gumtwo/" (22637 14378 0 0) "util_test.go" "util.go" "unpackedrows/" "unpacked_test.go" "unpacked.go" "type_test.go" "type.go" "table_test.go" "table.go" "sqldriver_test.go" "sqldriver.go" "server.go" "serialize.go" "range_test.go" "range.go" "query_test.go" "query.go" "plist_test.go" "plist.go" "partial_test.go" "partial.go" "parsequery_test.go" "parsequery.go" "metricuncompressedint64sumgroup_gen_amd64.s" "metricuint8sumgroup_gen_amd64.s" "metricuint16sumgroup_gen_amd64.s" "metric_test.go" "metric.go" "jit_test.go" "jit.go" "groupedpartial_test.go" "groupedpartial.go" "dimensiontwobytesfilter_gen.go" "dimensiononebytefilter_gen.go" "dimension_test.go" "dimension.go" "dict_test.go" "dict.go" "db_test.go" "db.go" "comparison.go" "codegen.go" "clientserver_test.go" "client.go" "chunk.go" "block_test.go" "block.go" "bitset_test.go" "bitset.go" "alloc.go" "#table.go#" "#range.go#" "#partial.go#" "../" "./")
+
+ ("/Users/mikeq/photos/" (22624 36440 0 0) "photos.go" "out/" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/work/src/interview/tetris/cpp/" (22616 53315 0 0) "tetris.cpp" "README.txt" "Makefile" "input.h" "input.cpp" "console.h" "console.cpp" "board.h" "board.cpp" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/work/src/interview/tetris/" (22525 15803 0 0) "ruby/" "python/" "js/" "java_win/" "java/" "go/" "cpp/" "c#/" "c/" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/gumtwo/wireproto/" (22612 19646 0 0) "wireproto_test.go" "wireproto.go" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/" (22589 63776 0 0) "zookeeper/" "zkmetrics/" "users/" "udspatch/" "shadow/" "script/" "rtbdash/" "postgresz/" "mparticle/" "mirror_maker/" "lumberjack/" "logbackup/" "kdash/" "karchive/" "kafka/" "jmetrics/" "jenkins/" "grete/" "grbserver/" "graphite/" "grafana/" "governor/" "gost/" "failmail/" "dashboard_gen/" "credentials/" "codemail/" "bluekai/" "awsdash/" "appnexus/" "ansible-repo/" "ansible/" ".ruby-version" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/grete/" (22599 10830 0 0) "server.go" "runit/" "README.md" "lib/" "grete_test.go" "grete.go" "governor.toml" "ansible/" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/postgres_db/" (22603 20530 0 0) "watchman/" "script/" "README.md" "pinpoint/" "orange/" "gumtwo_meta/" "grete/" "cohort/" "bookie/" "attribution/" "analytics_wing/" "analytics_sharding.md" "analytics_ext/" "analytics_annex/" "analytics/" "adspider/" "adhoc_sql/" ".ruby-version" ".projectile" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/Dropbox (Personal)/notes/liftoff/" (22589 46940 0 0) "sql-snippets.sql" "retrospective.org" "productivity_tools_email.md" "phone_screen_template.md" "interviews/" "campaign-clicks.org" "ad_spider_tech_talk.org" "ad_spider_design.md" "../" "./")
+
+ ("/Users/mikeq/dev/rust/qlisp/" (22524 62544 0 0) "test.txt" "target/" "src/" "lang.org" "Cargo.toml" "Cargo.lock" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/mikeq/work/src/interview/tetris/java/" (22525 15789 0 0) "TetrisUtils.java" "TetrisUtils.class" "Tetris.java" "Tetris.class" "README.txt" "Board.class" "../" "./")
+
+ ("/Users/mikeq/dev/rust/qlisp/src/" (22524 64850 0 0) "utils.rs" "parser.rs" "main.rs" "lexer.rs" "../" "./")
+
+ ("/Users/mikeq/work/src/interview/tetris/js/" (22195 54348 0 0) "tetrislib.js" "tetris.js" "page.html" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresdb/files/" (22589 63776 0 0) "prune_table.rb" "prune_postgres_logs.sh" "pg_hba.conf" "logrotate_d_postgresql-common" "lockfile.rb" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/h2go/tasks/" (22580 39765 0 0) "main.yml" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresz/files/" (22589 63776 0 0) "logbackup.toml" "governor.toml" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresz/templates/" (22589 63776 0 0) "run.sh.j2" "../" "./")
+
+ ("/Users/mikeq/work/src/interview/console_test/c/" (22589 46649 0 0) "README.txt" "Makefile" "input.h" "input.c" "console_test.c" "console.h" "console.c" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/work/src/interview/console_test/cpp/" (22589 46650 0 0) "Readme.txt" "Makefile" "input.h" "input.cpp" "console_test.cpp" "console.h" "console.cpp" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/timeseries/" (22591 18685 0 0) "timeseries.go" "timeseries" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/postgres_db/gumtwo_meta/" (22589 63776 0 0) "script/" "migrations/" "migrate.yml" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/postgres_db/gumtwo_meta/migrations/" (22607 8440 0 0) "migrations.sql" ".#migrations.sql" "#migrations.sql#" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresz/tasks/" (22565 7592 0 0) "main.yml" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/deploy-notifications/tasks/" (22571 24757 0 0) "main.yml" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresdb/templates/" (22565 7592 0 0) "recovery.conf.j2" "postgresql.conf.j2" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresz/meta/" (22570 16286 0 0) "main.yml" "../" "./")
+
+ ("/Users/mikeq/work/src/interview/tetris/python/" (22579 15226 0 0) "tetrislib.pyc" "tetrislib.py" "tetris.py" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/h2go/meta/" (22579 33695 0 0) "main.yml" "../" "./")
+
+ ("/Users/mikeq/dev/" (22573 2002 0 0) "work/" "rust/" "personal/" "lobos/" "Karabiner-Elements/" "go-liftoff/" "go/" "external/" "emacs-config/" "clojure-tetris/" "carbon/" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/dev/emacs-config/" (21879 8713 0 0) "solarized-light-theme.el" "solarized-dark-theme.el" ".gitmodules" ".gitignore" ".git/" ".emacs.d/" "../" "./")
+
+ ("/Users/mikeq/dev/emacs-config/.emacs.d/" (22583 3210 0 0) "vendor/" "tramp" "themes/" "snippets/" "projectile.cache" "projectile-bookmarks.eld" "plugins/" "misc/" "init.el" "ido.last~" "ido.last" "g-macs" "eshell/" "elpa/" "elisp/" "custom.el" "auto-save-list/" "ac-comphist.dat" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/" (22579 30725 0 0) "postgresz/" "postgresdb/" "openvpn/" "nginx/" "nbtdecode/" "monarch/" "mailer/" "logbackup/" "lobos/" "jenkins/" "ipsec-vpn/" "h2go/" "h2dbg/" "governor/" "gost/" "failmail/" "deploy-notifications/" "common/" "aws-credentials/" "a10db/" ".projectile" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/" (22579 30725 0 0) "terminate_ec2.yml" "terminate_azure.yml" "templates/" "tasks/" "roles/" "register_elb.yml" "redis_shards.yml" "README.md" "raid.yml" "provision_ec2.yml" "provision_digitalocean.yml" "provision_azure.yml" "logrotate_nginx.yml" "hostvars_to_json.yml" "hosts" "host_vars/" "group_vars/" "global.yml" "generate_uds_scheme.yml" "files/" "ec2_instance_type_info.yml" "ebs.yml" "digital_ocean_ssh_key.yml" "deregister_elb.yml" "deploy_ipsec_vpn.yml" "deploy_ec2_openvpn.yml" ".DS_Store" "../" "./")
+
+ ("/Users/" (22548 55185 0 0) "Shared/" "mikeq/" "Deleted Users/" ".localized" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/gumshoedb_deploy/" (22579 23558 0 0) "script/" "README.md" "build_release.bash" "bin/" "ansible/" ".projectile" "../" "./")
+
+ ("/Users/mikeq/work/src/" (22517 14625 0 0) "watchman.old/" "liftoff/" "interview/" "github.com/" "barkeep/" "ansible-modules-core/" "ansible/" "ad_spider/" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/docs/" (22579 12780 0 0) "web_ui_implementation_guide.md" "troubleshooting.md" "tls_certificates.md" "system_architecture_overview_talk.md" "security_groups.md" "salesforce_guide.md" "s3_buckets.md" "remote_profiling.md" "README.md" "pre_start_reading_list.md" "postmortems/" "postgres_ops.md" "postgres_cross_db_queries.md" "performance_work.md" "oncall_guide.md" "old_projects.md" "office_it.md" "new_hire_guide.md" "new_exchange.md" "mobile_app_release_guide.md" "ml_oncall_guide.md" "mentors_guide.md" "major_rollouts_guide.md" "machine_learning_overview_talk.md" "labrat_overview.md" "labrat_creative_templates.md" "ipsec_vpn.md" "interviewing/" "gumshoe_user_guide.md" "graphite.md" "general_ops.md" "engineering_practices.md" "employee_departure_procedures.md" "ec2_instance_management.md" "ebs_volume_setup.md" "doubleclick.md" "dns.md" "deploy_server.md" "data_analysis.md" "computing_feature_confidence_intervals.md" "code_style_guide.md" "apps_oncall_guide.md" "alerting.md" "ad_format_ux.md" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/awsdash/" (22578 42161 0 0) "templates/" "static/" "staging/" "runit/" "reflex.conf" "README.md" "Makefile" "iamclient.go" "iam_test.go" "iam.go" "governor.toml" "ec2client.go" "ec2_test.go" "ec2.go" "dns_public.go" "dns.go" "awsdash.yml" "awsdash.go" "awsdash" "assets/" "ami.go" ".projectile" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/jobs/" (22565 6735 0 0) "vendor/" "udscount/" "test/" "target/" "src/" "script/" "resources/" "README.md" "project.clj" "log/" "ipprefix" "installs/" "Gemfile.lock" "Gemfile" "directresponse/" "checkouts/" "awscreds.properties" "ansible/" ".projectile" ".nrepl-port" ".lein-failures" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/jobs/ansible/" (22553 3052 0 0) "templates/" "jobs.yml" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/credentials/" (22563 12615 0 0) "vpn/" "tls/" "smtp.toml" "README" "prospector.key" "mparticle_lambda.properties" "liftoffbot/" "harry-laptop-key-us-east.azure.x509cert.pem" "doubleclick/" "developer.profile" "azure_management_cert.pem" "aws/" "apps/" "appnexus_credentials.json" "apple/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/lobos/tasks/" (22558 54457 0 0) "main.yml" "../" "./")
+
+ ("/Users/mikeq/dev/rust/test/src/" (22294 18829 0 0) "test.rs" "../" "./")
+
+ ("/Users/mikeq/dev/rust/tetris/src/" (22294 19763 0 0) "util.rs" "terminal.rs" "main.rs" "display.rs" "#main.rs#" "../" "./")
+
+ ("/Users/mikeq/dev/work/jenkins/" (22463 12891 0 0) "Vagrantfile" ".vagrant/" "../" "./")
+
+ ("/Users/mikeq/dev/carbon/lib/carbon/" (22481 55160 0 0) "writer.py" "util.pyc" "util.py" "tests/" "storage.py" "state.py" "service.py" "routers.py" "rewrite.py" "relayrules.py" "regexlist.py" "protocols.py" "manhole.py" "management.py" "log.py" "instrumentation.py" "hashing.py" "exceptions.py" "events.py" "conf.py" "client.py" "cache.py" "amqp_publisher.py" "amqp_listener.py" "amqp0-8.xml" "aggregator/" "__init__.pyc" "__init__.py" "#hashing.py#" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/credentials/apple/" (22482 1019 0 0) "README.md" "Apple Distribution.p12" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/postgres_db/pinpoint-db/src/lobos/" (22555 42207 0 0) "migrations.clj" "config.clj" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/nginx/tasks/" (22450 26357 0 0) "main.yml" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/nginx/" (22450 26357 0 0) "tasks/" "handlers/" "files/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/common/tasks/" (22551 45411 0 0) "main.yml" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/common/" (22091 52701 0 0) "templates/" "tasks/" "files/" ".DS_Store" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/lobos/" (22450 26357 0 0) "tasks/" "../" "./")
+
+ ("/Users/mikeq/work/" (22389 9653 0 0) "src/" "pkg/" "bin/" ".DS_Store" ".cache/" "../" "./")
+
+ ("/Users/mikeq/dev/go/src/github.com/cespare/reflex/" (22553 6144 0 0) "watch.go" "vendor/" "reflex.go" "README.md" "print.go" "match_test.go" "match.go" "main.go" "LICENSE" "defaultexclude.go" "CONTRIBUTING.md" "config_test.go" "config.go" "backlog_test.go" "backlog.go" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/deploy-notifications/" (22552 50237 0 0) "templates/" "tasks/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresdb/" (22091 52701 0 0) "vars/" "templates/" "tasks/" "meta/" "files/" "defaults/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/go/stringid/" (22450 26357 0 0) "stringid_test.go" "stringid.go" "../" "./")
+
+ ("/Users/mikeq/dev/work/scratch/" (22370 62980 0 0) "unattr-clicks.org" "unattr-clicks/" "../" "./")
+
+ ("/Users/mikeq/dev/work/airflow/" (22455 28560 0 0) "Vagrantfile" ".vagrant/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/vendor/github.com/aws/aws-sdk-go/aws/" (22551 45412 0 0) "version.go" "types.go" "signer/" "session/" "request/" "logger.go" "errors.go" "ec2metadata/" "defaults/" "credentials/" "corehandlers/" "convert_types.go" "config.go" "client/" "awsutil/" "awserr/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/governor/meta/" (22551 45411 0 0) "main.yml" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/shared_lib/" (22545 30313 0 0) "vendor/" "test/" "target/" "src/" "script/" "resources/" "README.md" "Rakefile" "project.clj" "pom.xml" "log/" "lein_plugins/" "java/" "Gemfile.lock" "Gemfile" "deploy/" "data/" "cache/" ".projectile" ".nrepl-port" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/postgresz/" (22450 26357 0 0) "vars/" "templates/" "tasks/" "meta/" "files/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/credentials/dbs/" (22544 20405 0 0) "pinpoint_db_credentials.yml" "cohort_db_credentials.yml" "bookie_db_credentials.yml" "attribution_db_credentials.yml" "analytics_db_wing_credentials.yml" "analytics_db_credentials.yml" "analytics_db_annex_credentials.yml" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/shared_lib/src/" (22091 52701 0 0) "shared_lib/" "log4j.xml" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/shared_lib/src/shared_lib/" (22543 52646 0 0) "version.clj" "utils.clj" "user_data_store.clj" "usd.clj" "tracking_utils.clj" "time.clj" "testing/" "stats.clj" "spotter.clj" "skipper/" "shell/" "sharding.clj" "schedule.clj" "s3_dendrite.clj" "s3_data_utils.clj" "s3_cache.clj" "s3_bin_utils.clj" "s3_backup.clj" "s3.clj" "rsync.clj" "ring_middleware.clj" "record.clj" "puddle.clj" "persona.clj" "no_bid_reasons.clj" "models/" "metrics.clj" "logging/" "loft.clj" "kafka/" "json.clj" "ipprefix.clj" "ip_utils.clj" "ion.clj" "io/" "http_utils.clj" "health/" "hashing.clj" "gumshoe_constants.clj" "graphite.clj" "graph.clj" "exploration_cache.clj" "email_utils.clj" "dendrite_schemas.clj" "crypto.clj" "core.clj" "circuit_breaker.clj" "blacklists.clj" "async_utils.clj" "app_metadata_utils.clj" "app_id_utils.clj" "app_icon_utils.clj" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/shared_lib/src/shared_lib/health/" (22450 26357 0 0) "utils.clj" "backups.clj" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/h2go/" (22450 26357 0 0) "vars/" "templates/" "tasks/" "meta/" "files/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/pinpoint/" (22543 52646 0 0) "test/" "target/" "src/" "script/" "resources/" "README.md" "Rakefile" "project.clj" "log/" "Gemfile.lock" "Gemfile" "deploy/" "db/" "data/" "checkouts/" "bin/" ".rbenv-version" ".projectile" ".lein-repl-history" ".lein-failures" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/postgres_db/pinpoint-db/" (22543 57149 0 0) "README.md" "deploy.yml" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/bookie/" (22525 28537 0 0) "test/" "target/" "src/" "script/" "runit/" "resources/" "README.md" "Rakefile" "rake_tasks/" "project.clj" "Procfile" "output/" "Guardfile" "Gemfile.lock" "Gemfile" "checkouts/" "bin/" "ansible/" ".rbenv-version" ".projectile" ".lein-failures" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/bookie/src/" (22516 13512 0 0) "bookie/" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/bookie/src/bookie/" (22525 28537 0 0) "reports_handler.clj" "report.clj" "handler.clj" "dashboard_handler.clj" "asset_caching.clj" "ab_tests_handler.clj" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/exp/" (22533 27164 0 0) "unattrinstalls/" "README.md" "fips2iso/" "engweb/" "emacs/" "adhoc/" ".projectile" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/exp/engweb/" (22525 28537 0 0) "wallboard.html" "staging/" "README.md" "engweb.go" "engweb" "ansible/" ".gitignore" "../" "./")
+
+ ("/Users/mikeq/work/src/liftoff/ops/ansible/roles/governor/" (22543 54118 0 0) "vars/" "tasks/" "meta/" "../" "./")
+
+ ("/Users/mikeq/dev/go/src/github.com/aws/aws-sdk-go/service/iam/" (22533 43505 0 0) "waiters.go" "service.go" "iamiface/" "examples_test.go" "api.go" "../" "./")
+
+ ("/Users/mikeq/dev/go/src/github.com/aws/aws-sdk-go/service/" (22528 59654 0 0) "workspaces/" "waf/" "swf/" "support/" "sts/" "storagegateway/" "ssm/" "sqs/" "sns/" "snowball/" "simpledb/" "ses/" "servicecatalog/" "s3/" "route53domains/" "route53/" "redshift/" "rds/" "opsworks/" "mobileanalytics/" "marketplacemetering/" "marketplacecommerceanalytics/" "machinelearning/" "lambda/" "kms/" "kinesisanalytics/" "kinesis/" "iotdataplane/" "iot/" "inspector/" "iam/" "glacier/" "generate.go" "gamelift/" "firehose/" "emr/" "elbv2/" "elb/" "elastictranscoder/" "elasticsearchservice/" "elasticbeanstalk/" "elasticache/" "efs/" "ecs/" "ecr/" "ec2/" "dynamodbstreams/" "dynamodb/" "directoryservice/" "directconnect/" "devicefarm/" "datapipeline/" "databasemigrationservice/" "configservice/" "cognitosync/" "cognitoidentityprovider/" "cognitoidentity/" "codepipeline/" "codedeploy/" "codecommit/" "cloudwatchlogs/" "cloudwatchevents/" "cloudwatch/" "cloudtrail/" "cloudsearchdomain/" "cloudsearch/" "cloudhsm/" "cloudfront/" "cloudformation/" "autoscaling/" "applicationdiscoveryservice/" "applicationautoscaling/" "apigateway/" "acm/" "../" "./")
+
+ ("/Users/mikeq/dev/go/src/github.com/" (22536 63642 0 0) "rogpeppe/" "pquerna/" "ogier/" "mikejquinn/" "mailru/" "liftoffio/" "kr/" "kisielk/" "kballard/" "kardianos/" "julienschmidt/" "jmespath/" "golang/" "gogo/" "go-ini/" "dustin/" "cespare/" "aws/" "../" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

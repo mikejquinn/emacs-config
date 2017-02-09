@@ -50,6 +50,7 @@
           (call-interactively 'evil-scroll-line-to-center))
   ";g" 'org-set-tags-command
   ";va" 'org-agenda
+  "yc" 'org-table-copy-region
   "-" 'org-cycle-list-bullet
   ; I use "gl" for this because it behaves similarly to "goto label" in gmail and elsewhere
   "gl" 'org-goto-top-level-heading
@@ -190,3 +191,11 @@
     (goto-char 0)
     (org-move-to-heading heading)
     (recenter-no-redraw)))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (clojure . t)
+   (ruby . t)
+   (sh . t)
+   ))
