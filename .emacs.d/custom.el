@@ -13,8 +13,11 @@
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (csharp-mode undo-tree lua-mode yasnippet projectile org markdown-mode go-mode evil zoom-frm yaml-mode wrap-region with-editor tangotango-theme sublime-themes spinner solarized-theme smartparens seq scss-mode rust-mode rainbow-delimiters queue protobuf-mode outline-magic less-css-mode ido-vertical-mode ido-ubiquitous ham-mode golint go-stacktracer go-snippets go-projectile flx-ido f evil-surround evil-nerd-commenter evil-leader escreen dired-details+ diminish company color-identifiers-mode coffee-mode autopair auto-complete ag ace-jump-mode)))
- '(safe-local-variable-values (quote ((emacs-lisp-docstring-fill-column . 75)))))
+    (workgroups2 deft csharp-mode undo-tree lua-mode yasnippet projectile org markdown-mode go-mode evil zoom-frm yaml-mode wrap-region with-editor tangotango-theme sublime-themes spinner solarized-theme smartparens seq scss-mode rust-mode rainbow-delimiters queue protobuf-mode outline-magic less-css-mode ido-vertical-mode ido-ubiquitous ham-mode golint go-stacktracer go-snippets go-projectile flx-ido f evil-surround evil-nerd-commenter evil-leader escreen dired-details+ diminish company color-identifiers-mode coffee-mode autopair auto-complete ag ace-jump-mode)))
+ '(safe-local-variable-values
+   (quote
+    ((bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
+     (emacs-lisp-docstring-fill-column . 75)))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

@@ -7,6 +7,10 @@
 
 (provide 'clojure-mode-personal)
 
+;; Clojure formatting
+(require 'cljfmt)
+(add-hook 'before-save-hook 'cljfmt-before-save)
+
 ;; Count hyphens, etc. as word characters in lisps
 (add-hook 'clojure-mode-hook (lambda () (modify-syntax-entry ?- "w" clojure-mode-syntax-table)))
 (add-hook 'clojure-mode-hook (lambda ()
@@ -221,8 +225,8 @@
   )
 
 ;; Highlight parentheses in rainbow colors.
-(require 'rainbow-delimiters)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+;; (require 'rainbow-delimiters)
+;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; Clojure indentation rules
 (eval-after-load 'clojure-mode
