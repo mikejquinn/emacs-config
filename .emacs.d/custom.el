@@ -13,10 +13,11 @@
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (workgroups2 deft csharp-mode undo-tree lua-mode yasnippet projectile org markdown-mode go-mode evil zoom-frm yaml-mode wrap-region with-editor tangotango-theme sublime-themes spinner solarized-theme smartparens seq scss-mode rust-mode rainbow-delimiters queue protobuf-mode outline-magic less-css-mode ido-vertical-mode ido-ubiquitous ham-mode golint go-stacktracer go-snippets go-projectile flx-ido f evil-surround evil-nerd-commenter evil-leader escreen dired-details+ diminish company color-identifiers-mode coffee-mode autopair auto-complete ag ace-jump-mode)))
+    (evil-org workgroups2 deft csharp-mode undo-tree lua-mode yasnippet projectile org markdown-mode go-mode evil zoom-frm yaml-mode wrap-region with-editor tangotango-theme sublime-themes spinner solarized-theme smartparens seq scss-mode rust-mode rainbow-delimiters queue protobuf-mode outline-magic less-css-mode ido-vertical-mode ido-ubiquitous ham-mode golint go-stacktracer go-snippets go-projectile flx-ido f evil-surround evil-nerd-commenter evil-leader escreen dired-details+ diminish company color-identifiers-mode coffee-mode autopair auto-complete ag ace-jump-mode)))
  '(safe-local-variable-values
    (quote
-    ((bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
+    ((checkdoc-package-keywords-flag)
+     (bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
      (emacs-lisp-docstring-fill-column . 75)))))
 
 (custom-set-faces
@@ -33,6 +34,8 @@
  '(mu4e-cited-5-face ((t (:inherit font-lock-comment-face :weight normal))) t)
  '(mu4e-cited-6-face ((t (:inherit font-lock-comment-delimiter-face :weight normal))) t)
  '(mu4e-cited-7-face ((t (:inherit font-lock-preprocessor-face :weight normal))) t)
+ '(org-level-1 ((t (:foreground "dodger blue" :weight bold :height 1))))
+ '(org-level-2 ((t (:foreground "#edd400" :weight bold :height 1))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "#3A8CD7"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "#44D7BC"))))
  '(rainbow-delimiters-depth-4-face ((t (:foreground "#C9D736"))))

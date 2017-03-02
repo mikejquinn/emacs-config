@@ -3,7 +3,6 @@
 ;;; Provides an evil-org-mode minor mode.
 ;;; https://github.com/edwtjo/evil-org-mode
 
-(require 'evil)
 (require 'org)
 
 (provide 'org-mode-personal)
@@ -30,36 +29,38 @@
 
 (add-hook 'org-mode-hook 'init-org-mode-buffer)
 
-;; ;; normal state shortcuts
-;; (evil-define-key 'normal evil-org-mode-map
-;;   "t" 'org-todo
-;;   "T" '(lambda () (interactive) (evil-org-eol-call '(org-insert-todo-heading nil)))
-;;   "H" 'org-beginning-of-line
-;;   "L" 'org-end-of-line
-;;   ";vt" 'org-show-todo-and-done-tree
-;;   "o" '(lambda () (interactive) (evil-org-eol-call 'always-insert-item))
-;;   ;; "O" '(lambda () (interactive) (evil-org-eol-call 'org-insert-heading))
-;;   "$" 'org-end-of-line
-;;   "^" 'org-beginning-of-line
-;;   "<" 'org-metaleft
-;;   ">" 'org-metaright
-;;   ";a" '(lambda () (interactive)
-;;           (org-archive-subtree)
-;;           ;; For some reason org-archive-subtree aggressively scrolls the window down. Re-center the window on
-;;           ;; the cursor.
-;;           (call-interactively 'evil-scroll-line-to-center))
-;;   ";g" 'org-set-tags-command
-;;   ";va" 'org-agenda
-;;   "yc" 'org-table-copy-region
-;;   "-" 'org-cycle-list-bullet
-;;   ; I use "gl" for this because it behaves similarly to "goto label" in gmail and elsewhere
-;;   "gl" 'org-goto-top-level-heading
-;;   "gu" 'outline-up-heading
-;;   ; Normally these go backwards-and-forward by paragraphs but skipping between headings is more useful.
-;;   "{" 'org-backward-heading-same-level
-;;   "}" 'org-forward-heading-same-level
-;;   (kbd "<C-tab>") 'org-expand-top-level-parent
-;;   (kbd "TAB") 'org-cycle)
+;; normal state shortcuts
+(evil-define-key 'normal evil-org-mode-map
+  "t" 'org-todo
+  "T" '(lambda () (interactive) (evil-org-eol-call '(org-insert-todo-heading nil)))
+  "H" 'org-beginning-of-line
+  "L" 'org-end-of-line
+  "$" 'org-end-of-line
+  "<" 'org-metaleft
+  ">" 'org-metaright
+  ; I use "gl" for this because it behaves similarly to "goto label" in gmail and elsewhere
+  "gl" 'org-goto-top-level-heading
+  "gu" 'outline-up-heading
+  )
+  ;; ";vt" 'org-show-todo-and-done-tree
+  ;; "o" '(lambda () (interactive) (evil-org-eol-call 'always-insert-item))
+  ;; ;; "O" '(lambda () (interactive) (evil-org-eol-call 'org-insert-heading))
+  ;; "^" 'org-beginning-of-line
+  ;; ";a" '(lambda () (interactive)
+  ;;         (org-archive-subtree)
+  ;;         ;; For some reason org-archive-subtree aggressively scrolls the window down. Re-center the window on
+  ;;         ;; the cursor.
+  ;;         (call-interactively 'evil-scroll-line-to-center))
+  ;; ";g" 'org-set-tags-command
+  ;; ";va" 'org-agenda
+  ;; "yc" 'org-table-copy-region
+  ;; "-" 'org-cycle-list-bullet
+  ;; ; Normally these go backwards-and-forward by paragraphs but skipping between headings is more useful.
+  ;; "{" 'org-backward-heading-same-level
+  ;; "}" 'org-forward-heading-same-level
+  ;; (kbd "<C-tab>") 'org-expand-top-level-parent
+  ;; (kbd "TAB") 'org-cycle)
+  ;; )
 
 ;; (defun preview-org ()
 ;;   "Pipes the buffer's contents into a script which renders the markdown as HTML and opens in a browser."
@@ -72,22 +73,22 @@
 ;;   "c" 'org-capture-item-and-prepend-to-subtree
 ;;   "vv" 'preview-org)
 
-;; ;; normal & insert state shortcuts.
-;; (mapc (lambda (state)
-;;         (evil-define-key state evil-org-mode-map
-;;           (kbd "C-S-L") 'org-metaright
-;;           (kbd "C-S-H") 'org-metaleft
-;;           (kbd "C-S-K") 'org-metaup
-;;           (kbd "C-S-J") 'org-metadown
-;;           ; M-return creates a new todo item and enters insert mode.
-;;           (kbd "<C-return>") '(lambda () (interactive)
-;;                                 (org-insert-heading-after-current)
-;;                                 (evil-append nil))))
-;;       ;; TODO(philc): Make S-C-enter insert a heading above
-;;           ;; (kbd "<C-S-return>") '(lambda () (interactive)
-;;           ;;                       (org-insert-subheading-as-first-child)
-;;           ;;                       (evil-append nil))))
-;;       '(normal insert))
+;; normal & insert state shortcuts.
+(mapc (lambda (state)
+        (evil-define-key state evil-org-mode-map
+          (kbd "C-S-L") 'org-metaright
+          (kbd "C-S-H") 'org-metaleft
+          (kbd "C-S-K") 'org-metaup
+          (kbd "C-S-J") 'org-metadown
+          ; M-return creates a new todo item and enters insert mode.
+          (kbd "<C-return>") '(lambda () (interactive)
+                                (org-insert-heading-after-current)
+                                (evil-append nil))))
+      ;; TODO(philc): Make S-C-enter insert a heading above
+          ;; (kbd "<C-S-return>") '(lambda () (interactive)
+          ;;                       (org-insert-subheading-as-first-child)
+          ;;                       (evil-append nil))))
+      '(normal insert))
 
 ;; (defun always-insert-item ()
 ;;   (if (not (org-in-item-p))
