@@ -1,5 +1,3 @@
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -11,22 +9,21 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(;ace-jump-mode ; Jump to any text on screen in a few keystrokes. Like Vim's EasyMotion.
+(defvar my-packages '(ace-jump-mode ; Jump to any text on screen in a few keystrokes. Like Vim's EasyMotion.
                       ;ag ; Silver searcher integration for Emacs
                       ;autopair ; Insert matching delimiters, e.g. insert closing braces.
                       auto-complete
                       company
-                      coffee-mode ; For syntax highlighting coffeescript.
+                      coffee-mode
                       deft ; Note taking
                       dired-details+ ; Hides all of the unnecessary file details in dired mode.
                       diminish ; For hiding and shortening minor modes in the modeline
-                      ;; escreen
                       evil
                       evil-leader
                       evil-nerd-commenter
                       flx-ido ; Fuzzy matching for ido, which improves the UX of Projectile.
-                      go-mode ; For editing Go files.
-                      less-css-mode ; Syntax highlighting for LESS CSS files.
+                      go-mode
+                      less-css-mode
                       ido-ubiquitous ; make ido completions work everywhere.
                       ido-vertical-mode ; show ido results vertically.
                       markdown-mode
@@ -51,6 +48,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/org-mode/lisp"))
+(require 'org)
 
 (require 'cl)
 (add-to-list 'load-path "~/.emacs.d/elisp")
@@ -105,6 +105,7 @@
 
 ;; Colorscheme
 (load-theme 'tangotango t)
+;; (load-theme 'solarized-light t)
 ; A font face size of 140 can show 110 chars before wrapping on a 1920x1200 resolution.
 (set-face-attribute 'default nil :height 140)
 
@@ -164,6 +165,16 @@
 (global-set-key (kbd "C-A-M-h") 'help)
 (global-set-key (kbd "C-A-M-b") 'describe-bindings)
 
+;; TODO: Do this on save, but fix the modes that auto-save.
+(global-set-key (kbd "M-d") 'delete-trailing-whitespace)
+
+;; The poorly-named winner mode saves the history of your window splits, so you can undo and redo changes to
+;; your window configuration.
+(winner-mode t)
+
+;; Disable creation of lock files. I nearly always edit through emacs, and emacs seems to get confused
+;; about file ownership if my mac hostname changes.
+(setq create-lockfiles nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Evil mode -- Vim keybindings for Emacs.
@@ -187,7 +198,7 @@
 (define-key evil-normal-state-map (kbd "M-s") 'save-buffer)
 (define-key evil-insert-state-map (kbd "M-s") 'save-buffer)
 
-;; ;; Move up and down through long, wrapped lines one visual line at a time.
+;; Move up and down through long, wrapped lines one visual line at a time.
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 (define-key evil-normal-state-map (kbd "K") 'info-lookup-symbol)
@@ -195,7 +206,7 @@
 (define-key evil-normal-state-map (kbd "RET") 'newline-and-indent)
 
 ;; By default, Emacs will not indent when you hit enter/return within a comment.
-;; (define-key evil-insert-state-map (kbd "RET") 'newline-and-indent)
+(define-key evil-insert-state-map (kbd "RET") 'newline-and-indent)
 
 ;; When jumping back and forth between marks, recenter the screen on the cursor.
 (define-key evil-normal-state-map (kbd "C-o")
@@ -219,11 +230,11 @@
 (evil-leader/set-key
  "h" 'help
  "B" 'ido-switch-buffer
-;;   "SPC" 'evil-fill-inside-paragraph ; Shortcut for Vim's gqip
+ ;; "SPC" 'evil-fill-inside-paragraph ; Shortcut for Vim's gqip
 ;;   "i" 'evil-indent-inside-paragraph ; Shortcut to Vim's =ip
-;;   "vn" 'open-markdown-file-from-notes-folder
-  "vo" (lambda () (interactive) (find-file "~/Dropbox/tasks.org"))
+  "vo" (lambda () (interactive) (find-file "~/Dropbox/org/tasks.org"))
   "ve" (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
+  "vh" (lambda () (interactive) (find-file "~/work/src/liftoff/ops/ansible/hosts"))
  )
 
 (setq evil-leader/leader ";")
@@ -238,6 +249,14 @@
 (define-key evil-normal-state-map "," 'evilnc-comment-operator)
 (define-key evil-visual-state-map "," 'evilnc-comment-operator)
 
+;; package menu mode
+(evil-define-key 'normal package-menu-mode-map "i" 'package-menu-mark-install)
+(evil-define-key 'normal package-menu-mode-map "u" 'package-menu-mark-unmark)
+(evil-define-key 'normal package-menu-mode-map "U" 'package-menu-mark-upgrades)
+(evil-define-key 'normal package-menu-mode-map "r" 'package-menu-refresh)
+(evil-define-key 'normal package-menu-mode-map "x" 'package-menu-execute)
+(evil-define-key 'normal package-menu-mode-map "?" 'package-menu-describe-package)
+(setq evil-emacs-state-modes (delq 'package-menu-mode evil-emacs-state-modes))
 
 ;;
 ;; Mac OS X keybindings minor mode.
@@ -303,8 +322,6 @@
 
 (setq project-folders '("~/work/src/liftoff" "~/work/src/liftoff/ops" "~/dev/personal" "~/dev/go/src/mikeq"))
 (setq ansible-role-folders '("~/work/src/liftoff/ops/ansible/roles"))
-(setq notes-directories '("~/Dropbox (Personal)/notes" "~/Desktop"))
-(setq notes-file-extensions '(".md" ".sql" ".txt" ".org"))
 
 ;; This is set to 600 by default. It shouldn't be the case, but for some reason, the filter-files-in-directory
 ;; function hits this limit.
@@ -345,8 +362,8 @@
                 (wg-rename-workgroup (file-name-nondirectory project)))))))))
 
 (evil-leader/set-key
-  "vp" (lambda () (interactive) (open-root-of-project-in-dired "Project name" project-folders))
-  "vr" (lambda () (interactive) (open-root-of-project-in-dired "Ansible role" ansible-role-folders)))
+  "vp" (lambda () (interactive) (open-root-of-project-in-dired "Project name: " project-folders))
+  "vr" (lambda () (interactive) (open-root-of-project-in-dired "Ansible role: " ansible-role-folders)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -544,6 +561,7 @@
 ;; goimports formats your code and also adds or removes imports as needed.
 ;; goimports needs to be on your path. See https://godoc.org/code.google.com/p/go.tools/cmd/goimports
 (setq gofmt-command "goimports")
+(setq gofmt-args '("-local" "liftoff/"))
 
 (defun init-go-buffer-settings ()
   (add-hook 'before-save-hook 'gofmt-before-save)
@@ -562,11 +580,15 @@
 (ido-mode t)
 (ido-ubiquitous-mode t)
 (ido-vertical-mode t)
+(ido-mode (quote both))
 (eval-after-load 'ido
   '(progn
      (setq ido-enable-flex-matching t)
      (setq ido-use-virtual-buffers t)
      (setq ido-everywhere t)
+     ;; Use the current window when visiting files and buffers with ido.
+     (setq ido-default-file-method 'selected-window)
+     (setq ido-default-buffer-method 'selected-window)
      ;; kill the highlighted buffer in the matches list.
      (define-key ido-buffer-completion-map (kbd "M-d") 'ido-kill-buffer-at-head)))
 
@@ -581,11 +603,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org mode, for TODOs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (require 'org-mode-personal)
+(require 'org-mode-personal)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Various package configs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;
+;; Ace jump - for quickly jumping to a precise character in view. Similar to Vim's EasyMotion.
+;;
+(require 'ace-jump-mode)
+(define-key evil-normal-state-map (kbd "SPC") 'ace-jump-word-mode)
+;; Note that Evil mode's ace-jump integration is supposed to add this motion keybinding automatically for you,
+;; but it doesn't work. So I've defined it here explicitly.
+(define-key evil-motion-state-map (kbd "SPC") 'evil-ace-jump-word-mode)
 
 ;; Deft - Note taking
 (require 'deft)
@@ -631,11 +662,29 @@
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
+;;
+;; Spell checking
+;; http://www.emacswiki.org/emacs/SpeckMode
+;;
+;; FlySpell is the default choice for spellchecking, but I found it slow, even using every flyspell perf
+;; improvement I could find. Speck doesn't slow down your typing.
+;;
+;; You may need to install aspell (e.g. `brew install aspell`).
+;; (add-to-list 'load-path "~/.emacs.d/plugins/speck-mode")
+;; (require 'speck)
+;; ;; This apparently needs to be a fully-qualified path.
+;; (setq speck-personal-dictionary-file (concat (getenv "HOME") "/.personal_dict.txt"))
+;; (setq speck-engine (quote Aspell))
+;; (add-hook 'text-mode-hook 'speck-mode)
+;;  ;; Triggers a spell-correction menu. I use this to add words to my dictionary (hit "i").
+;; (define-key evil-normal-state-map (kbd "zg") 'speck-popup-menu-at-point)
+
 ;; Workgroups2
 (require 'workgroups2)
 (evil-leader/set-key "p" 'wg-switch-to-workgroup)
 (evil-leader/set-key "np" 'wg-create-workgroup)
 (evil-leader/set-key "kp" 'wg-kill-workgroup)
+(evil-leader/set-key "rp" 'wg-rename-workgroup)
 (define-key osx-keys-minor-mode-map (kbd "M-n") 'wg-create-workgroup)
 (workgroups-mode 1)
 
@@ -715,16 +764,6 @@
 
 ;; (define-key evil-outer-text-objects-map "p" 'evil-paragraph-from-newlines)
 ;; (define-key evil-outer-text-objects-map "P" 'evil-a-paragraph)
-
-;; ;;
-;; ;; Ace jump - for quickly jumping to a precise character in view. Similar to Vim's EasyMotion.
-;; ;;
-;; (require 'ace-jump-mode)
-;; (define-key evil-normal-state-map (kbd "SPC") 'ace-jump-word-mode)
-;; ;; Note that Evil mode's ace-jump integration is supposed to add this motion keybinding automatically for you,
-;; ;; but it doesn't work. So I've defined it here explicitly.
-;; (define-key evil-motion-state-map (kbd "SPC") 'evil-ace-jump-word-mode)
-
 
 ;; (defun open-folder-in-finder ()
 ;;   "Opens the folder of the current file in OSX's Finder."
@@ -835,24 +874,6 @@
 ;;           (t
 ;;            (call-interactively 'delete-backward-char)))))
 
-;;
-;; Spell checking
-;; http://www.emacswiki.org/emacs/SpeckMode
-;;
-;; FlySpell is the default choice for spellchecking, but I found it slow, even using every flyspell perf
-;; improvement I could find. Speck doesn't slow down your typing.
-;;
-;; You may need to install aspell (e.g. `brew install aspell`).
-
-;; (add-to-list 'load-path "~/.emacs.d/plugins/speck-mode")
-;; (require 'speck)
-;; ;; This apparently needs to be a fully-qualified path.
-;; (setq speck-personal-dictionary-file "/Users/mikeq/.personal_dict.txt")
-;; (setq speck-engine (quote Aspell))
-;; (add-hook 'text-mode-hook 'speck-mode)
-;;  ;; Triggers a spell-correction menu. I use this to add words to my dictionary (hit "i").
-;; (define-key evil-normal-state-map (kbd "zg") 'speck-popup-menu-at-point)
-
 ;; ;;
 ;; ;; Markdown
 ;; ;;
@@ -958,14 +979,15 @@
 ;;               ;; If we invoke this inside of a split, don't set the tab's title.
 ;;               (when (= 1 (length (window-list)))
 ;;                 (escreen-set-tab-alias (file-name-nondirectory project)))))))))
+
 ;;
 ;; JSON
 ;;
-;; (defun json-format ()
-;;   "Pipe the current buffer into `jq .`, and replace the current buffer's contents."
-;;   (interactive)
-;;   (save-excursion
-;;     (call-process-region (point-min) (point-max) "jq" t (buffer-name) t ".")))
+(defun json-format ()
+  "Pipe the current buffer into `jq .`, and replace the current buffer's contents."
+  (interactive)
+  (save-excursion
+    (call-process-region (point-min) (point-max) "jq" t (buffer-name) t ".")))
 
 ;;
 ;; Java
@@ -1034,9 +1056,6 @@
 ;; Disable the prompt we get when killing a buffer with a process. This affects clojure mode in particular,
 ;; when we want to restart the nrepl process.
 ;; (setq kill-buffer-query-functions (remq 'process-kill-buffer-query-function kill-buffer-query-functions))
-;; The poorly-named winner mode saves the history of your window splits, so you can undo and redo changes to
-;; your window configuration.
-;; (winner-mode t)
 
 ;; ; The version of ruby-electric in melpa wasn't compiling for me as of 9/14
 ;; (add-to-list 'load-path "~/.emacs.d/vendor/ruby-electric/")
@@ -1044,3 +1063,4 @@
 
 ;; Smart parens
 ;; (require 'smartparens-config)
+(put 'narrow-to-region 'disabled nil)

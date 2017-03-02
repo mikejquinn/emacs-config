@@ -122,7 +122,7 @@ function."
         (message "Could not apply cljfmt")
         (if errbuf (cljfmt--process-errors (buffer-file-name) tmpfile errbuf)))
 
-      (kill-buffer patchbuf)
+      ;; (kill-buffer patchbuf)
       (delete-file tmpfile))))
 
 (defun cljfmt--process-errors (filename tmpfile errbuf)
