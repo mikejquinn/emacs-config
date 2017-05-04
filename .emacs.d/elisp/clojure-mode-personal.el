@@ -201,10 +201,8 @@
 ;;   "er" (lambda () (interactive) (with-nrepl-connection-of-current-buffer 'cider-eval-region))
 ;;   ;; Shortcuts for printing the results of expressions. These eval functions take a second param which prints
 ;;   ;; result of the expression.
-;;   ;; "eps" (lambda () (interactive) (with-nrepl-connection-of-current-buffer
-;;   ;;                                 (lambda () (my-cider-eval-current-sexp t))))
-;;   ;; "epx" (lambda () (interactive) (with-nrepl-connection-of-current-buffer
-;;   ;;                                 'my-cider-eval-and-print-defun-at-point))
+  "eps" (lambda () (interactive) (my-cider-eval-current-sexp t))
+  "epx" (lambda () (interactive) (my-cider-eval-and-print-defun-at-point))
 ;;   "eps" (lambda () (interactive) (my-cider-eval-current-sexp t))
 ;;   "epx" (lambda () (interactive) (my-cider-eval-and-print-defun-at-point))
 ;;   ;; "rt" (lambda ()

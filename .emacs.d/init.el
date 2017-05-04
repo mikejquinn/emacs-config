@@ -1,6 +1,3 @@
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -12,7 +9,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(;ace-jump-mode ; Jump to any text on screen in a few keystrokes. Like Vim's EasyMotion.
+(defvar my-packages '(ace-jump-mode ; Jump to any text on screen in a few keystrokes. Like Vim's EasyMotion.
                       ;ag ; Silver searcher integration for Emacs
                       ;autopair ; Insert matching delimiters, e.g. insert closing braces.
                       auto-complete
@@ -51,6 +48,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/org-mode/lisp"))
+(require 'org)
 
 (require 'cl)
 (add-to-list 'load-path "~/.emacs.d/elisp")
@@ -105,6 +105,7 @@
 
 ;; Colorscheme
 (load-theme 'tangotango t)
+;; (load-theme 'solarized-light t)
 ; A font face size of 140 can show 110 chars before wrapping on a 1920x1200 resolution.
 (set-face-attribute 'default nil :height 140)
 
@@ -171,6 +172,9 @@
 ;; your window configuration.
 (winner-mode t)
 
+;; Disable creation of lock files. I nearly always edit through emacs, and emacs seems to get confused
+;; about file ownership if my mac hostname changes.
+(setq create-lockfiles nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Evil mode -- Vim keybindings for Emacs.
@@ -228,8 +232,9 @@
  "B" 'ido-switch-buffer
  ;; "SPC" 'evil-fill-inside-paragraph ; Shortcut for Vim's gqip
 ;;   "i" 'evil-indent-inside-paragraph ; Shortcut to Vim's =ip
-  "vo" (lambda () (interactive) (find-file "~/Dropbox/tasks.org"))
+  "vo" (lambda () (interactive) (find-file "~/Dropbox/org/tasks.org"))
   "ve" (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
+  "vh" (lambda () (interactive) (find-file "~/work/src/liftoff/ops/ansible/hosts"))
  )
 
 (setq evil-leader/leader ";")
@@ -357,8 +362,8 @@
                 (wg-rename-workgroup (file-name-nondirectory project)))))))))
 
 (evil-leader/set-key
-  "vp" (lambda () (interactive) (open-root-of-project-in-dired "Project name" project-folders))
-  "vr" (lambda () (interactive) (open-root-of-project-in-dired "Ansible role" ansible-role-folders)))
+  "vp" (lambda () (interactive) (open-root-of-project-in-dired "Project name: " project-folders))
+  "vr" (lambda () (interactive) (open-root-of-project-in-dired "Ansible role: " ansible-role-folders)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -575,11 +580,15 @@
 (ido-mode t)
 (ido-ubiquitous-mode t)
 (ido-vertical-mode t)
+(ido-mode (quote both))
 (eval-after-load 'ido
   '(progn
      (setq ido-enable-flex-matching t)
      (setq ido-use-virtual-buffers t)
      (setq ido-everywhere t)
+     ;; Use the current window when visiting files and buffers with ido.
+     (setq ido-default-file-method 'selected-window)
+     (setq ido-default-buffer-method 'selected-window)
      ;; kill the highlighted buffer in the matches list.
      (define-key ido-buffer-completion-map (kbd "M-d") 'ido-kill-buffer-at-head)))
 
@@ -661,14 +670,14 @@
 ;; improvement I could find. Speck doesn't slow down your typing.
 ;;
 ;; You may need to install aspell (e.g. `brew install aspell`).
-(add-to-list 'load-path "~/.emacs.d/plugins/speck-mode")
-(require 'speck)
-;; This apparently needs to be a fully-qualified path.
-(setq speck-personal-dictionary-file (concat (getenv "HOME") "/.personal_dict.txt"))
-(setq speck-engine (quote Aspell))
-(add-hook 'text-mode-hook 'speck-mode)
- ;; Triggers a spell-correction menu. I use this to add words to my dictionary (hit "i").
-(define-key evil-normal-state-map (kbd "zg") 'speck-popup-menu-at-point)
+;; (add-to-list 'load-path "~/.emacs.d/plugins/speck-mode")
+;; (require 'speck)
+;; ;; This apparently needs to be a fully-qualified path.
+;; (setq speck-personal-dictionary-file (concat (getenv "HOME") "/.personal_dict.txt"))
+;; (setq speck-engine (quote Aspell))
+;; (add-hook 'text-mode-hook 'speck-mode)
+;;  ;; Triggers a spell-correction menu. I use this to add words to my dictionary (hit "i").
+;; (define-key evil-normal-state-map (kbd "zg") 'speck-popup-menu-at-point)
 
 ;; Workgroups2
 (require 'workgroups2)
@@ -688,15 +697,10 @@
 ;; Clojure
 (add-to-list 'load-path "~/.emacs.d/vendor/cider/")
 (add-to-list 'load-path "~/.emacs.d/vendor/clojure-mode/")
-(message "1")
 (require 'clojure-mode)
-(message "2")
 (require 'clojure-mode-personal)
-(message "3")
 (require 'cider)
-(message "4")
 (require 'cider-test)
-(message "5")
 
 ;; ;; Ensure we evil-leader works in non-editing modes like magit. This is referenced from evil-leader's README.
 ;; (setq evil-leader/no-prefix-mode-rx '("magit-.*-mode"))
@@ -975,14 +979,15 @@
 ;;               ;; If we invoke this inside of a split, don't set the tab's title.
 ;;               (when (= 1 (length (window-list)))
 ;;                 (escreen-set-tab-alias (file-name-nondirectory project)))))))))
+
 ;;
 ;; JSON
 ;;
-;; (defun json-format ()
-;;   "Pipe the current buffer into `jq .`, and replace the current buffer's contents."
-;;   (interactive)
-;;   (save-excursion
-;;     (call-process-region (point-min) (point-max) "jq" t (buffer-name) t ".")))
+(defun json-format ()
+  "Pipe the current buffer into `jq .`, and replace the current buffer's contents."
+  (interactive)
+  (save-excursion
+    (call-process-region (point-min) (point-max) "jq" t (buffer-name) t ".")))
 
 ;;
 ;; Java
@@ -1058,3 +1063,4 @@
 
 ;; Smart parens
 ;; (require 'smartparens-config)
+(put 'narrow-to-region 'disabled nil)
