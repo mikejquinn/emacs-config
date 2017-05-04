@@ -13,6 +13,8 @@
                       ;ag ; Silver searcher integration for Emacs
                       ;autopair ; Insert matching delimiters, e.g. insert closing braces.
                       auto-complete
+                      spinner
+                      queue
                       company
                       coffee-mode
                       deft ; Note taking
