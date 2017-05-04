@@ -4,17 +4,28 @@
 ;;; https://github.com/edwtjo/evil-org-mode
 
 (require 'org)
-
+(require 'ox-odt)
 (provide 'org-mode-personal)
 
-(define-minor-mode evil-org-mode
-  "Buffer local minor mode for evil-org"
-  :init-value nil
-  :lighter " EvilOrg"
-  :keymap (make-sparse-keymap) ; defines evil-org-mode-map
-  :group 'evil-org)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; General settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-hook 'org-mode-hook 'evil-org-mode) ;; only load with org-mode
+(setq org-directory "~/Dropbox (Personal)/org")
+(setq org-default-notes-file "~/Dropbox (Personal)/org/refile.org")
+
+(setq org-agenda-files (quote ("~/Dropbox (Personal)/org")))
+
+;; Use IDO for both buffer and file completion and ido-everywhere to t.
+(setq org-completion-use-ido t)
+;; C-ret starts inserts a new line instead of breaking the current one.
+(setq org-M-RET-may-split-line nil)
+
+;; Use the current window for indirect buffer display
+(setq org-indirect-buffer-display 'current-window)
+
+;; Align tags at column 80.
+(setq org-tags-column 80)
 
 (defun init-org-mode-personal ()
   ;; This enables "clean mode", such that sublists use whitespace for indentation (ala markdown) instead of
@@ -29,30 +40,65 @@
 
 (add-hook 'org-mode-hook 'init-org-mode-buffer)
 
-;; normal state shortcuts
+(setq org-acii-text-width 10000)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Org mode helpers
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun mq/evil-org-eol-call (fun)
+  (end-of-line)
+  (funcall fun)
+  (evil-append nil))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Keybindings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-minor-mode evil-org-mode
+  "Buffer local minor mode for evil-org"
+  :init-value nil
+  :lighter " EvilOrg"
+  :keymap (make-sparse-keymap) ; defines evil-org-mode-map
+  :group 'evil-org)
+
+(add-hook 'org-mode-hook 'evil-org-mode) ;; only load with org-mode
+
+(evil-leader/set-key
+  "ol" 'org-store-link
+  "oc" 'org-capture
+  "oj" 'org-clock-goto
+  "oa" 'org-agenda
+  "ob" 'org-iswitchb)
+
+(evil-leader/set-key-for-mode 'org-mode
+  "a" (lambda () (interactive)
+         (org-archive-subtree)
+         ;; For some reason org-archive-subtree aggressively scrolls the window down. Re-center the window on
+         ;; the cursor.
+         (call-interactively 'evil-scroll-line-to-center))
+  "ci" 'org-clock-in
+  "co" 'org-clock-out
+  "s" 'org-schedule
+  )
+
+;; Normal state shortcuts
 (evil-define-key 'normal evil-org-mode-map
   "t" 'org-todo
-  "T" '(lambda () (interactive) (evil-org-eol-call '(org-insert-todo-heading nil)))
+  "T" '(lambda () (interactive) (mq/evil-org-eol-call '(org-insert-todo-heading)))
   "H" 'org-beginning-of-line
   "L" 'org-end-of-line
   "$" 'org-end-of-line
   "<" 'org-metaleft
   ">" 'org-metaright
+  "^" 'org-beginning-of-line
   ; I use "gl" for this because it behaves similarly to "goto label" in gmail and elsewhere
   "gl" 'org-goto-top-level-heading
   "gu" 'outline-up-heading
   )
-  ;; ";vt" 'org-show-todo-and-done-tree
-  ;; "o" '(lambda () (interactive) (evil-org-eol-call 'always-insert-item))
-  ;; ;; "O" '(lambda () (interactive) (evil-org-eol-call 'org-insert-heading))
-  ;; "^" 'org-beginning-of-line
-  ;; ";a" '(lambda () (interactive)
-  ;;         (org-archive-subtree)
-  ;;         ;; For some reason org-archive-subtree aggressively scrolls the window down. Re-center the window on
-  ;;         ;; the cursor.
-  ;;         (call-interactively 'evil-scroll-line-to-center))
+  ;; "o" '(lambda () (interactive) (mq/evil-org-eol-call 'always-insert-item))
+  ;; ;; "O" '(lambda () (interactive) (mq/evil-org-eol-call 'org-insert-heading))
   ;; ";g" 'org-set-tags-command
-  ;; ";va" 'org-agenda
   ;; "yc" 'org-table-copy-region
   ;; "-" 'org-cycle-list-bullet
   ;; ; Normally these go backwards-and-forward by paragraphs but skipping between headings is more useful.
@@ -62,6 +108,100 @@
   ;; (kbd "TAB") 'org-cycle)
   ;; )
 
+;; normal & insert state shortcuts.
+(mapc (lambda (state)
+        (evil-define-key state evil-org-mode-map
+          (kbd "C-S-L") 'org-metaright
+          (kbd "C-S-H") 'org-metaleft
+          (kbd "C-S-K") 'org-metaup
+          (kbd "C-S-J") 'org-metadown))
+      '(normal insert))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Refile settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq org-refile-targets '((nil :maxlevel . 4)
+                           (org-agenda-files :maxlevel . 4)))
+
+; Exclude DONE state tasks from refile targets
+(defun mq/verify-refile-target ()
+  "Exclude todo keywords with a done state from refile targets"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+(setq org-refile-target-verify-function 'mq/verify-refile-target)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Task and Clock settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "red" :weight bold)
+              ("NEXT" :foreground "yellow" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold)
+              ("WAITING" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANCELLED" :foreground "forest green" :weight bold)
+              ("MEETING" :foreground "forest green" :weight bold)
+              ("PHONE" :foreground "forest green" :weight bold))))
+
+(setq org-use-fast-todo-selection t)
+;; TODO: This doesn't work since I rebind L/R shift to ( and ).
+(setq org-treat-S-cursor-todo-selection-as-state-change nil)
+
+;; Persist clock history across emacs sessions
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+(setq org-clock-idle-time 10)
+
+;; Don't allow parent TODOs to be marked complete untill all TODO children are
+(setq org-enforce-todo-dependencies t)
+
+;; Dim blocked tasks in agenda views
+(setq org-agenda-dim-blocked-tasks t)
+
+;; Add/remove tags when moving tasks between states.
+(setq org-todo-state-tags-triggers
+      (quote (("CANCELLED" ("CANCELLED" . t))
+              ("WAITING" ("WAITING" . t))
+              ("HOLD" ("WAITING") ("HOLD" . t))
+              (done ("WAITING") ("HOLD"))
+              ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+              ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+              ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+
+;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol.
+(setq org-capture-templates
+      (quote (("t" "todo" entry (file "~/Dropbox (Personal)/org/refile.org")
+               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("r" "respond" entry (file "~/Dropbox (Personal)/org/refile.org")
+               "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish n)
+              ("t" "note" entry (file "~/Dropbox (Personal)/org/refile.org")
+               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("j" "Journal" entry (file+datetree "~/Dropbox (Personal)/org/diary.org")
+               "* %?\n%U\n" :clock-in t :clock-resume t)
+              ("w" "org-protocol" entry (file "~/Dropbox (Personal)/org/refile.org")
+               "* TODO Review %c\n%U\n" :immediate-finish t)
+              ("m" "Meeting" entry (file "~/Dropbox (Personal)/org/refile.org")
+               "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+              ("p" "Phone call" entry (file "~/Dropbox (Personal)/org/refile.org")
+               "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+              ("h" "Habit" entry (file "~/Dropbox (Personal)/org/refile.org")
+               "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+
+;; Remove empty LOGBOOK drawers on clock out
+(defun mq/remove-empty-drawer-on-clock-out ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line 0)
+    (org-remove-empty-drawer-at "LOGBOOK")))
+
+;; (add-hook 'org-clock-out-hook 'mq/remove-empty-drawer-on-clock-out 'append)
+
 ;; (defun preview-org ()
 ;;   "Pipes the buffer's contents into a script which renders the markdown as HTML and opens in a browser."
 ;;   (interactive)
@@ -70,35 +210,12 @@
 ;;                        "convert_org_to_markdown.rb | markdown_page.rb | bcat"))
 
 ;; (evil-leader/set-key-for-mode 'org-mode
-;;   "c" 'org-capture-item-and-prepend-to-subtree
 ;;   "vv" 'preview-org)
-
-;; normal & insert state shortcuts.
-(mapc (lambda (state)
-        (evil-define-key state evil-org-mode-map
-          (kbd "C-S-L") 'org-metaright
-          (kbd "C-S-H") 'org-metaleft
-          (kbd "C-S-K") 'org-metaup
-          (kbd "C-S-J") 'org-metadown
-          ; M-return creates a new todo item and enters insert mode.
-          (kbd "<C-return>") '(lambda () (interactive)
-                                (org-insert-heading-after-current)
-                                (evil-append nil))))
-      ;; TODO(philc): Make S-C-enter insert a heading above
-          ;; (kbd "<C-S-return>") '(lambda () (interactive)
-          ;;                       (org-insert-subheading-as-first-child)
-          ;;                       (evil-append nil))))
-      '(normal insert))
 
 ;; (defun always-insert-item ()
 ;;   (if (not (org-in-item-p))
 ;;       (insert "\n")
 ;;     (org-insert-item)))
-
-;; (defun evil-org-eol-call (fun)
-;;   (end-of-line)
-;;   (funcall fun)
-;;   (evil-append nil))
 
 ;; ;; Moves the current heading (and all of its children) into the matching parent note in the archive file.
 ;; ;; I think this is the most sensible way to archive TODOs in org mode files.
@@ -113,25 +230,6 @@
 ;;            org-archive-location)))
 ;;     ad-do-it))
 
-;; (defun org-show-todo-and-done-tree ()
-;;   "Shows only subtrees which are TODOs or DONE items. Similar to org-show-todo-tree, but it matches DONE items
-;;    as well."
-;;   (interactive)
-;;   (save-excursion
-;;     ;; Note that these tags are case insensitive.
-;;     (org-occur "\\(TODO\\|DONE\\|INPROGRESS\\|WAITING\\)")
-;;     ;; org-occur highlights every TODO and DONE string match in the doc, which is distracting. Remove it.
-;;     (org-remove-occur-highlights)))
-
-;; ;; When I've narrowed a subtree (e.g. via org-show-todo-and-done-tree), this allows me to quickly expand the
-;; ;; tree around the cursor to show all items again, not just TODO and DONE.
-;; (defun org-expand-top-level-parent ()
-;;   "Shows the children of the top-level parent for the tree under the cursor."
-;;   (interactive)
-;;   (save-excursion
-;;     (outline-up-heading 4)
-;;     (show-children)))
-
 ;; (defun text-of-current-line ()
 ;;   (buffer-substring-no-properties (line-beginning-position)
 ;;                                   (line-beginning-position 2)))
@@ -140,58 +238,6 @@
 ;;   "Assumes the cursor is currently on a heading. TODO: return nil if the cursor isn't on a heading."
 ;;   (-> (text-of-current-line) chomp (split-string "* ") second))
 
-;; (defun org-move-to-heading (heading-name)
-;;   (lexical-let ((heading-has-changed nil)
-;;                 (heading-has-been-found nil)
-;;                 (current-heading nil))
-;;     (while (not (or (eq heading-has-changed 't)
-;;                     (eq heading-has-been-found 't)))
-;;       (setq current-heading (org-get-current-heading))
-;;       (setq heading-has-been-found (string= current-heading heading-name))
-;;       (when (not heading-has-been-found)
-;;         (org-forward-heading-same-level nil)
-;;         (setq heading-has-changed (string= current-heading (org-get-current-heading)))))))
-
-;; (defun org-insert-subheading-as-first-child (subheading-text)
-;;   "Inserts the given text as the first child of the heading which is currently under the cursor."
-;;   (org-insert-heading-after-current)
-;;   (insert subheading-text)
-;;   (org-demote)
-;;   ;; TODO(philc): This works because org-move-subtree-up throws an error (using user-error) when it can no
-;;   ;; longer move up. Change this so we only invoke org-move-subtree-up "current-depth" times.
-;;   (while t
-;;     ;; This will throw an exception once we can no longer move the subtree up.
-;;     (org-move-subtree-up)))
-
-;; (defun org-capture-item-and-prepend-to-subtree ()
-;;   "Prompts for a TODO and the name of a top-level heading, and adds the TODO as a child to the heading."
-;;   (interactive)
-;;   ;; NOTE(philc): These are personalized to the way I organize my org mode TODO file.
-;;   (message "[L] Liftoff  [E] Errands  [S] Study  [N] Entertainment  [M] Emacs")
-;;   (lexical-let ((subheading (pcase (read-char)
-;;                               (?l "Liftoff")
-;;                               (?l "Personal")
-;;                               (?e "Errands")
-;;                               (?s "Study")
-;;                               (?n "Entertainment")
-;;                               (?m "Emacs")
-;;                               (?p "Side projects"))))
-;;     (when subheading
-;;       (lexical-let ((new-todo (read-from-minibuffer (concat subheading " TODO: "))))
-;;         (save-excursion
-;;           (goto-char 0)
-;;           (org-move-to-heading subheading)
-;;           (org-insert-subheading-as-first-child new-todo))))))
-
-;; (defun org-goto-top-level-heading ()
-;;   (interactive)
-;;   "Prompts for the name of a top-level heading and jumps to there."
-;;   ;; TODO(philc): Populate these completions with the top-level headers from the buffer.
-;;   (let* ((headings '("Liftoff" "Errands" "Study" "Entertainment" "Emacs" "Side projects"))
-;;          (heading (ido-completing-read "Heading: " headings)))
-;;     (goto-char 0)
-;;     (org-move-to-heading heading)
-;;     (recenter-no-redraw)))
 
 ;; (org-babel-do-load-languages
 ;;  'org-babel-load-languages
