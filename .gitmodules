@@ -7,3 +7,6 @@
 [submodule "ruby-electric"]
 	path = .emacs.d/vendor/ruby-electric
 	url = https://github.com/qoobaa/ruby-electric.git
+[submodule ".emacs.d/vendor/org-mode"]
+	path = .emacs.d/vendor/org-mode
+	url = git://orgmode.org/org-mode.git
