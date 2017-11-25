@@ -13,7 +13,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/tasks.org")))
  '(package-selected-packages
    (quote
-    (tango-plus-theme twilight-bright-theme gandalf-theme evil-org workgroups2 deft csharp-mode undo-tree lua-mode yasnippet projectile org markdown-mode go-mode evil zoom-frm yaml-mode wrap-region with-editor tangotango-theme sublime-themes spinner solarized-theme smartparens seq scss-mode rust-mode rainbow-delimiters queue protobuf-mode outline-magic less-css-mode ido-vertical-mode ido-ubiquitous ham-mode golint go-stacktracer go-snippets go-projectile flx-ido f evil-surround evil-nerd-commenter evil-leader escreen dired-details+ diminish company color-identifiers-mode coffee-mode autopair auto-complete ag ace-jump-mode)))
+    (evil-smartparens tango-plus-theme twilight-bright-theme gandalf-theme evil-org workgroups2 deft csharp-mode undo-tree lua-mode yasnippet projectile org markdown-mode go-mode evil zoom-frm yaml-mode wrap-region with-editor tangotango-theme sublime-themes spinner solarized-theme smartparens seq scss-mode rust-mode rainbow-delimiters queue protobuf-mode outline-magic less-css-mode ido-vertical-mode ido-ubiquitous ham-mode golint go-stacktracer go-snippets go-projectile flx-ido f evil-surround evil-nerd-commenter evil-leader escreen dired-details+ diminish company color-identifiers-mode coffee-mode autopair auto-complete ag ace-jump-mode)))
  '(safe-local-variable-values
    (quote
     ((checkdoc-package-keywords-flag)
@@ -27,13 +27,6 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:background nil))))
  '(cider-error-highlight-face ((t (:inherit nil :underline "brown4"))))
- '(mu4e-cited-1-face ((t (:inherit font-lock-builtin-face :weight normal))) t)
- '(mu4e-cited-2-face ((t (:inherit font-lock-type-face :weight normal))) t)
- '(mu4e-cited-3-face ((t (:inherit font-lock-variable-name-face :weight normal))) t)
- '(mu4e-cited-4-face ((t (:inherit font-lock-keyword-face :weight normal))) t)
- '(mu4e-cited-5-face ((t (:inherit font-lock-comment-face :weight normal))) t)
- '(mu4e-cited-6-face ((t (:inherit font-lock-comment-delimiter-face :weight normal))) t)
- '(mu4e-cited-7-face ((t (:inherit font-lock-preprocessor-face :weight normal))) t)
  '(org-level-1 ((t (:foreground "dodger blue" :weight bold :height 1.0))))
  '(org-level-2 ((t (:foreground "#edd400" :weight bold :height 1.0))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "#3A8CD7"))))

@@ -85,9 +85,11 @@
 (setq vc-follow-symlinks t) ; Don't ask confirmation to follow symlinks to edit files.
 (setq text-scale-mode-step 1.1) ;; When changing font size, change in small increments.
 
-(global-font-lock-mode t)
-(setq font-lock-maximum-decoration t
-      font-lock-maximum-size nil)
+(global-font-lock-mode nil)
+(setq font-lock-maximum-decoration nil
+      font-lock-maximum-size nil
+      font-lock-support-mode 'jit-lock-mode ;'lazy-lock-mode ;'fast-lock-mode ; lazy-lock-mode
+      fast-lock-cache-directories '("~/.emacs-flc"))
 
 ;; Include path information in duplicate buffer names (e.g. a/foo.txt b/foo.txt)
 (setq uniquify-buffer-name-style 'forward)
@@ -558,7 +560,7 @@
 (require 'go-mode)
 (evil-define-key 'normal go-mode-map
   "gf" 'godef-jump
-  "K" 'godef-describe)
+  "K" 'godoc-at-point)
 
 ;; goimports formats your code and also adds or removes imports as needed.
 ;; goimports needs to be on your path. See https://godoc.org/code.google.com/p/go.tools/cmd/goimports
@@ -574,6 +576,10 @@
   (setq indent-tabs-mode 1))
 
 (add-hook 'go-mode-hook 'init-go-buffer-settings)
+
+(require 'go-autocomplete)
+(require 'auto-complete-config)
+(ac-config-default)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; IDO Mode config (auto-complete menus)
@@ -1048,8 +1054,6 @@
 
 ;; Deprecated?
 
-;;(setq font-lock-support-mode 'fast-lock-mode ; lazy-lock-mode
-;;      fast-lock-cache-directories '("~/.emacs-flc"))
 ;; Some modes have their own tab-width variables which need to be overridden.
 ;; (setq-default css-indent-offset 2)
 ;; Visually wrap long lines on word boundaries. By default, Emacs will wrap mid-word. Note that Evil doesn't
@@ -1064,5 +1068,7 @@
 ;; (require 'ruby-electric)
 
 ;; Smart parens
-;; (require 'smartparens-config)
 (put 'narrow-to-region 'disabled nil)
+;; (require 'smartparens-config)
+;; (add-hook 'clojure-mode-hook #'smartparens-mode)
+;; (add-hook 'clojure-mode-hook #'evil-smartparens-mode)
