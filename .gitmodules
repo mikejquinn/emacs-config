@@ -7,3 +7,15 @@
 [submodule "ruby-electric"]
 	path = .emacs.d/vendor/ruby-electric
 	url = https://github.com/qoobaa/ruby-electric.git
+[submodule "vendor/zoom-frm"]
+	path = vendor/zoom-frm
+	url = https://github.com/emacsmirror/zoom-frm.git
+[submodule "vendor/frame-cmds"]
+	path = vendor/frame-cmds
+	url = https://github.com/emacsmirror/frame-cmds.git
+[submodule "vendor/frame-fns"]
+	path = vendor/frame-fns
+	url = https://github.com/emacsmirror/frame-fns.git
+[submodule "vendor/use-package"]
+	path = vendor/use-package
+	url = https://github.com/jwiegley/use-package.git
