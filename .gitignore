@@ -1,7 +1,7 @@
-.emacs.d/auto-save-list
-.emacs.d/bookmarks
-.emacs.d/elpa
-.emacs.d/history
-.emacs.d/projectile-bookmarks.eld
+auto-save-list
+bookmarks
+elpa
+history
+projectile-bookmarks.eld
 projectile.cache
-/.emacs.d/ac-comphist.dat
+ac-comphist.dat
