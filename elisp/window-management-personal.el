@@ -3,6 +3,8 @@
 ;;
 (provide 'window-management-personal)
 
+(require 'cl)
+
 ;; Settings for window splits.
 (setq split-height-threshold 40)
 (setq split-width-threshold 200)
