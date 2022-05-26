@@ -37,6 +37,9 @@
 
 (when window-system (set-exec-path-from-shell-PATH))
 
+(setq liftoff-repos-path (getenv "REPOS"))
+(setq shell-file-name "/bin/bash")
+
 (setq inhibit-startup-message t)
 (setq inhibit-startup-echo-area-message t)
 (setq ring-bell-function 'ignore)
@@ -77,9 +80,9 @@
 (global-whitespace-mode t)
 (eval-after-load 'whitespace
   '(progn
-     (setq whitespace-line-column 110) ; When text flows past 110 chars, highlight it.
+     ;; (setq whitespace-line-column 110) ; When text flows past 110 chars, highlight it.
      ; whitespace-mode by default highlights all whitespace. Show only tabs and trailing spaces.
-     (setq whitespace-style '(face trailing lines-tail))))
+     (setq whitespace-style '(face trailing))))
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (setq-default tab-width 2)
@@ -123,14 +126,14 @@
 ;; Mac OS X keybindings minor mode.
 ;; Make it so the OSX keybindings you're used to always work in every mode in Emacs.
 ;; http://stackoverflow.com/questions/683425/globally-override-key-binding-in-emacs
-;;
 (defvar mq/osx-keys-minor-mode-map (make-keymap) "osx-keys-minor-mode-keymap")
 (define-key mq/osx-keys-minor-mode-map (kbd "M-a") 'mark-whole-buffer)
 (define-key mq/osx-keys-minor-mode-map (kbd "M-v") 'clipboard-yank)
 (define-key mq/osx-keys-minor-mode-map (kbd "M-c") 'clipboard-kill-ring-save)
+
 ; Commenting this out because currently I like to use M-h in org mode for
 ; org-promote-subtree, and I very rarely care about hiding emacs.
-;(define-key mq/osx-keys-minor-mode-map (kbd "M-h") 'ns-do-hide-emacs)
+; (define-key mq/osx-keys-minor-mode-map (kbd "M-h") 'ns-do-hide-emacs)
 (define-key mq/osx-keys-minor-mode-map (kbd "M-m") 'iconify-or-deiconify-frame)
 (define-key mq/osx-keys-minor-mode-map (kbd "M-n") 'new-frame)
 (define-key mq/osx-keys-minor-mode-map (kbd "M-`") 'other-frame)
@@ -139,6 +142,8 @@
 (define-key mq/osx-keys-minor-mode-map (kbd "M--") 'text-scale-decrease)
 (define-key mq/osx-keys-minor-mode-map (kbd "M-=") 'text-scale-increase)
 (define-key mq/osx-keys-minor-mode-map (kbd "M-0") (lambda () (interactive) (text-scale-adjust 0)))
+;; While not a osx key, this is a key I want available everywhere.
+(define-key mq/osx-keys-minor-mode-map (kbd "M-p") 'fill-paragraph)
 
 ;; These aren't specifically replicating OSX shortcuts, but they manipulate the window, so I want them to take
 ;; precedence over everything else.
@@ -157,9 +162,16 @@
       nil)))
 
 (define-minor-mode mq/osx-keys-minor-mode
-    "A minor-mode for emulating osx keyboard shortcuts."
-    t " osx" mq/osx-keys-minor-mode-map)
-  (mq/osx-keys-minor-mode t)
+  "A minor-mode for emulating osx keyboard shortcuts."
+  t " osx" mq/osx-keys-minor-mode-map)
+(mq/osx-keys-minor-mode t)
+
+;; (use-package undo-fu
+;;   :ensure t
+;;   :config
+;;   (global-undo-tree-mode -1)
+;;   (define-key evil-normal-state-map "u" 'undo-fu-only-undo)
+;;   (define-key evil-normal-state-map "\C-r" 'undo-fu-only-redo))
 
 (use-package delight
   :ensure t
@@ -182,28 +194,29 @@
 ;; Evil mode
 ;;
 
+(setq evil-want-C-u-scroll t)
 (use-package evil
   :ensure t
   :init
   ;; When opening new lines, indent according to the previous line.
   (setq evil-auto-indent t)
-  (setq evil-want-C-u-scroll t)
-  (require 'undo-tree)
+  ;; (require 'undo-tree)
   :config
   (evil-mode t)
   )
 
 (defun mq/declare-prefix (prefix name &optional long-name)
   "Declare a prefix PREFIX. PREFIX is a string describing a key
-sequence. NAME is a string used as the prefix command.
-LONG-NAME if given is stored in `spacemacs/prefix-titles'."
+  sequence. NAME is a string used as the prefix command.
+  LONG-NAME if given is stored in `spacemacs/prefix-titles'."
   (let* ((command name)
          (full-prefix (concat evil-leader/leader " " prefix))
          (full-prefix-lst (listify-key-sequence (kbd full-prefix))))
     ;; define the prefix command only if it does not already exist
     (unless long-name (setq long-name name))
-    (which-key-add-key-based-replacements
-      full-prefix (cons name long-name))))
+    ;; (which-key-add-key-based-replacements
+    ;;   full-prefix (cons name long-name))
+    ))
 
 (use-package evil-leader
   :ensure t
@@ -262,7 +275,7 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
 	:config (progn
 						(setq company-idle-delay 0)
 						(setq company-minimum-prefix-length 1)
-						(setq company-tooltip-align-annotations t)))
+ 						(setq company-tooltip-align-annotations t)))
 
 (use-package projectile
   :ensure t
@@ -272,20 +285,48 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
 (use-package flycheck
   :ensure t
   :delight "FlyC"
+  :init
+  (setq flycheck-protoc-import-path (list (concat liftoff-repos-path "/liftoff")))
   :config
   (global-flycheck-mode)
   (evil-define-key 'normal flycheck-mode-map (kbd "C-n") 'flycheck-next-error)
-  (evil-define-key 'normal flycheck-mode-map (kbd "C-p") 'flycheck-previous-error))
+  (evil-define-key 'normal flycheck-mode-map (kbd "C-p") 'flycheck-previous-error)
+  (add-hook 'c-mode-hook
+            (lambda () (setq flycheck-clang-include-path
+                             (list (expand-file-name "~/odbc/include")
+                                   ))))
+  )
 
 (use-package lsp-mode
   :ensure t
   :config
   ;; use flycheck, not flymake
-  (setq lsp-prefer-flymake nil))
+  (setq lsp-prefer-flymake nil)
+  (setq lsp-auto-guess-root nil)
+  (add-to-list 'lsp-file-watch-ignored-directories "/vendor")
+  (add-to-list 'lsp-file-watch-ignored-directories "/js")
+  (add-to-list 'lsp-file-watch-ignored-directories "/hawker/unity")
+  (add-to-list 'lsp-file-watch-ignored-directories "/hawker/android")
+  (add-to-list 'lsp-file-watch-ignored-directories "/hawker/ios")
+  (add-to-list 'lsp-file-watch-ignored-directories "/antd")
+  (add-to-list 'lsp-file-watch-ignored-directories "/jobs/clojure")
+  (add-to-list 'lsp-file-watch-ignored-directories "/labrat")
+  (add-to-list 'lsp-file-watch-ignored-directories "/madlib")
+  (add-to-list 'lsp-file-watch-ignored-directories "/clj")
+  (add-to-list 'lsp-file-watch-ignored-directories "/ml/clj")
+  (add-to-list 'lsp-file-watch-ignored-directories "/django_admin")
+  (add-to-list 'lsp-file-watch-ignored-directories "node_modules")
+  )
 
-(use-package company-lsp
-  :ensure t
-	:commands company-lsp)
+(use-package lsp-ui
+  :ensure t)
+
+(use-package helm-lsp
+  :ensure t)
+
+;; (use-package company-lsp
+;;   :ensure t
+;; 	:commands company-lsp)
 
 (use-package go-mode
   :ensure t
@@ -293,20 +334,38 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
          (before-save . lsp-format-buffer)
          (before-save . lsp-organize-imports))
   :config
+  (add-hook 'go-mode-hook (lambda () (setq fill-column 80)))
   (evil-leader/set-key-for-mode 'go-mode
     "gg" 'lsp-find-definition
     "rn" 'lsp-rename))
 
-(use-package doom-themes
-	:ensure t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-one t)
+(use-package swift-mode
+  :ensure t)
 
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
+(use-package flycheck-swift
+  :after (swift-mode)
+  :ensure t)
+
+(use-package lsp-sourcekit
+  :ensure t
+  :after lsp-mode
+  :config
+  (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
+
+(use-package swift-mode
+  :ensure t
+  :hook
+  (swift-mode . (lambda () (lsp))))
+
+;; (use-package doom-themes
+;; 	:ensure t
+;;   :config
+;;   ;; Global settings (defaults)
+;;   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+;;         doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;;   (load-theme 'doom-one t)
+;;   ;; Corrects (and improves) org-mode's native fontification.
+;;   (doom-themes-org-config))
 
 (use-package markdown-mode
   :ensure t
@@ -353,7 +412,7 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
                              ))
 
   ;; Log task state changes into the LOGBOOK drawer
-  (setq org-log-into-drawer t)
+  ;; (setq org-log-into-drawer t)
 
   ;; Don't allow parent TODOs to be marked complete untill all TODO children are
   (setq org-enforce-todo-dependencies t)
@@ -440,13 +499,11 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
   (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-z") #'helm-select-action)
   (define-key helm-map [escape] 'helm-keyboard-quit)
-
   (use-package helm-projectile :ensure t)
   (use-package helm-files
     :config
     (define-key helm-find-files-map (kbd "C-w") 'helm-find-files-up-one-level))
-
-  (helm-mode t))
+    (helm-mode t))
 
 (use-package helm-org
   :ensure t
@@ -475,11 +532,12 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
   :config
   (add-hook 'org-mode-hook 'evil-org-mode)
 
-  (evil-define-key 'normal evil-org-mode-map
-    "t" 'org-todo
-    (kbd "A-h") 'outline-up-heading
-    (kbd "A-j") 'org-forward-heading-same-level
-    (kbd "A-k") 'org-backward-heading-same-level)
+  (dolist (state '(normal visual))
+    (evil-define-key state 'evil-org-mode
+      "t" 'org-todo
+      (kbd "A-h") 'outline-up-heading
+      (kbd "A-j") 'org-forward-heading-same-level
+      (kbd "A-k") 'org-backward-heading-same-level))
 
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)
@@ -614,15 +672,15 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
            ;; This call never runs for some reason.
            (cider-test-run-ns-tests))))
 
-(use-package yasnippet
-  :ensure t
-  :config
-  (yas-reload-all)
-  (add-hook 'go-mode-hook #'yas-minor-mode)
-  (add-hook 'clojure-mode-hook #'yas-minor-mode))
+;; ;; (use-package yasnippet
+;; ;;   :ensure t
+;; ;;   :config
+;; ;;   (yas-reload-all)
+;; ;;   (add-hook 'go-mode-hook #'yas-minor-mode)
+;; ;;   (add-hook 'clojure-mode-hook #'yas-minor-mode))
 
-(use-package yasnippet-snippets
-  :ensure t)
+;; ;; (use-package yasnippet-snippets
+;; ;;   :ensure t)
 
 (use-package eyebrowse
   :ensure t
@@ -649,6 +707,8 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
   (define-key eyebrowse-mode-map (kbd "M-{") 'eyebrowse-prev-window-config)
   (define-key eyebrowse-mode-map (kbd "M-}") 'eyebrowse-next-window-config)
   (define-key eyebrowse-mode-map (kbd "M-r") 'eyebrowse-rename-window-config))
+
+(use-package kotlin-mode :ensure t)
 
 ;; LSP mode generates a lot of garbage.
 (setq gc-cons-threshold 100000000)

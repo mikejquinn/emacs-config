@@ -61,7 +61,7 @@
                   (newline))
                 (newline)))
       (insert-section "Select completed stories"
-                      (list-stories-in-iteration "done" -1))
+                      (list-stories-in-iteration "done" -2))
       (insert-section "Select ongoing stories"
                       (list-stories-in-iteration "current" 0)))))
 

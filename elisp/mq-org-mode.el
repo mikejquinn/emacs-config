@@ -28,8 +28,13 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                  (list nil nil)))
   (let* ((beg (or beg (point-min)))
          (end (or end (point-max))))
+    ;; (call-process-region beg end "/bin/bash" nil nil nil "-c"
+    ;;                      "tee /Users/mikeq/md.out | convert_org_to_markdown.rb | markdown_page.rb --css gmail | browser")
     (call-process-region beg end "/bin/bash" nil nil nil "-c"
-                         "tee /Users/mikeq/md.out | convert_org_to_markdown.rb | markdown_page.rb --css gmail | browser")))
+                         "GO111MODULE=off go run github.com/mikejquinn/orgtohtml | browser" )
+    ;; (call-process-region beg end "/bin/bash" nil nil nil "-c"
+    ;;                      "tee /Users/mikeq/out" )
+    ))
 
     ;; This convert_org_to_markdown.rb is a primitive script I've written which fits my needs.
     ;; (call-process-region beg end "/bin/bash" nil nil nil "-c"
