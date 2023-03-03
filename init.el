@@ -367,6 +367,8 @@
 ;;   ;; Corrects (and improves) org-mode's native fontification.
 ;;   (doom-themes-org-config))
 
+(load-theme 'tango-dark t)
+
 (use-package markdown-mode
   :ensure t
   :mode (("README\\.md\\'" . gfm-mode)
@@ -390,26 +392,52 @@
   (setq org-lowest-priority ?C)
   (setq org-default-priority ?C)
 
-  (setq org-directory "~/Dropbox/org")
+  (setq org-directory "~/notes")
   (setq org-default-notes-file "refile.org")
   (setq org-outline-path-complete-in-steps nil)
 
-  (setq mq-org-files '("~/Dropbox/org/tasks.org"
-                       "~/Dropbox/org/personal.org"))
+  (setq mq-org-files '("~/Dropbox/notes"
+                       "~/Dropbox/notes/liftoff"
+                       "~/Dropbox/notes/liftoff/reports"
+                       "~/Dropbox/notes/liftoff/projects"
+                       "~/Dropbox/notes/liftoff/teams"))
 
-  (setq org-agenda-files (cons "~/Dropbox/org/refile.org" mq-org-files))
+  (setq org-agenda-files '("~/notes/tasks.org"
+                           "~/notes/refile.org"
+                           "~/notes/personal.org"
+                           "~/notes/liftoff"
+                           "~/notes/liftoff/projects"
+                           "~/notes/liftoff/reports"
+                           "~/notes/liftoff/teams"
+                           ))
 
   (setq org-completion-use-ido t)
   (setq org-refile-use-outline-path 'file)
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-allow-creating-parent-nodes 'confirm)
 
+  (setq org-export-with-title nil)
+  (setq org-export-with-toc nil)
+  (setq org-export-headline-levels 0)
+  (setq org-export-with-section-numbers 0)
+  (setq org-export-with-author nil)
+  (setq org-export-with-date nil)
+  (setq org-export-time-stamp-file nil)
+  (setq org-html-validation-link nil)
+  ;; Use Gmail's default styling, so I can copy exported HTML into the Compose window with no reformatting:
+  (setq org-html-head "<style type=\"text/css\">body {font-size: small; font-family: arial, helvetica, sans-serif; line-height: 1.5;}</style>")
+
   ;; I have some deeply nested trees, so only use the top three levels as
   ;; refle targets.
-  (setq org-refile-targets '(
-                             ;; (nil :maxlevel . 2)
-                             (mq-org-files :maxlevel . 3)
-                             ))
+  (setq org-refile-targets `(
+                             ("~/notes/tasks.org"  :maxlevel . 2)
+                             ("~/notes/liftoff/meetings.org"  :tag . "refile")
+                             (,(directory-files-recursively "~/notes/liftoff/teams/" ".org$") :tag . "refile")
+                             (,(directory-files-recursively "~/notes/liftoff/reports/" ".org$") :maxlevel . 1)
+                             (,(directory-files-recursively "~/notes/liftoff/projects/" ".org$") :maxlevel . 1)
+                             ;; (mq-org-files :maxlevel . 3)
+                             ;; (,(directory-files-recursively "~/Dropbox/notes/liftoff/reports/" "^[a-z0-9]*.org$") :maxlevel . 1)
+                              ))
 
   ;; Log task state changes into the LOGBOOK drawer
   ;; (setq org-log-into-drawer t)
@@ -436,7 +464,7 @@
 
   (setq org-todo-keywords
     (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-            (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MEETING"))))
+            (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)"))))
 
   (setq org-todo-keyword-faces
     (quote (("TODO" :foreground "red" :weight bold)
@@ -444,8 +472,7 @@
             ("DONE" :foreground "forest green" :weight bold)
             ("WAITING" :foreground "orange" :weight bold)
             ("HOLD" :foreground "magenta" :weight bold)
-            ("CANCELLED" :foreground "forest green" :weight bold)
-            ("MEETING" :foreground "forest green" :weight bold))))
+            ("CANCELLED" :foreground "forest green" :weight bold))))
 
   ;; Add/remove tags when moving tasks between states.
   (setq org-todo-state-tags-triggers
@@ -459,12 +486,12 @@
 
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol.
   (setq org-capture-templates
-    (quote (("t" "todo" entry (file "~/Dropbox/org/refile.org")
+    (quote (("t" "todo" entry (file "~/Dropbox/notes/refile.org")
              "* TODO %?")
-            ("n" "note" entry (file "~/Dropbox/org/refile.org")
+            ("n" "note" entry (file "~/Dropbox/notes/refile.org")
              "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-            ("m" "Meeting" entry (file "~/Dropbox/org/refile.org")
-             "* MEETING %? :MEETING:\n%U" :clock-in t :clock-resume t))))
+            ("m" "Meeting" entry (file "~/Dropbox/notes/refile.org")
+             "* %t: %? :meeting:\n" :clock-in t :clock-resume t))))
 
   (setq org-agenda-custom-commands
     '(("c" "Simple agenda view"
@@ -475,8 +502,9 @@
         (alltodo ""
                  ((org-agenda-skip-function '(or (mq/org-skip-subtree-if-priority ?A)
                                                  (org-agenda-skip-if nil '(scheduled deadline)))))))
-       ((org-agenda-files '("~/Dropbox/org/refile.org"
-                            "~/Dropbox/org/tasks.org"))))))
+       ;; ((org-agenda-files '("~/Dropbox/notes/refile.org"
+       ;;                      "~/Dropbox/notes/tasks.org")))
+       )))
 
   :config
   (add-to-list 'org-modules 'org-habit)
@@ -555,17 +583,19 @@
   (evil-leader/set-key
     "oc" 'org-capture
     "oa" 'org-agenda
-    "oo" (lambda () (interactive) (find-file "~/Dropbox/org/tasks.org")))
+    "ob" 'org-switchb
+    "oo" (lambda () (interactive) (find-file "~/Dropbox/notes/tasks.org")))
   (mq/declare-prefix "o" "org-mode")
 
   (evil-leader/set-key-for-mode 'org-mode
     "/" 'org-sparse-tree
     "n" 'org-narrow-to-subtree
+    "N" 'widen
     "r" 'org-refile
+    "t" 'org-set-tags-command
     "d" 'org-deadline
     "a" 'org-archive-subtree-default
-    "N" 'widen
-    "ci" 'org-clock-in
+"ci" 'org-clock-in
     "co" 'org-clock-out)
   )
 
@@ -714,5 +744,10 @@
 (setq gc-cons-threshold 100000000)
 ;; Some LSP responses are in the 800k - 3M range.
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
+
+(defun markdown-html (buffer)
+  (princ (with-current-buffer buffer
+      (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+    (current-buffer)))
 
 (provide 'init)
